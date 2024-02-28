@@ -32,5 +32,22 @@ SecurityAlert
 | where isnotempty(IPAddress) or isnotempty(Account) or isnotempty(HostName)
 // Aggregating by Time and Alert to consolidate all entities per Alert
 | summarize AccountList=make_set(Account), IPList = make_set(IPAddress), HostList = make_set(HostName) by TimeGenerated, AlertName,AlertSeverity,Description,AlertType,Status,Techniques
+```
 
+this is my magical QKL querry allowing me to identify all possible threats on devices and servers to mitigate :
+```
+SecurityAlert
+// choosing only alerts created by Defender
+| where ProviderName contains "MD" and Status != "Resolved"
+//extend Entities
+| extend EntitiesDynamicArray = parse_json(Entities)
+| mv-expand EntitiesDynamicArray
+// Parsing relevant entity column extract hostname and IP address
+| extend EntityType = tostring(parse_json(EntitiesDynamicArray).Type), EntityAddress = tostring(EntitiesDynamicArray.Address), EntityHostName = tostring(EntitiesDynamicArray.HostName), EntityAccountName = tostring(EntitiesDynamicArray.Name)
+| extend HostName = iif(EntityType == 'host', EntityHostName, '')
+| extend IPAddress = iif(EntityType == 'ip', EntityAddress, '')
+| extend Account = iif(EntityType == 'account', EntityAccountName, '')
+| where isnotempty(IPAddress) or isnotempty(Account) or isnotempty(HostName)
+// Aggregating by Time and Alert to consolidate all entities per Alert
+| summarize AccountList=make_set(Account), HostList = make_set(HostName) by TimeGenerated, AlertName,AlertSeverity,Description,AlertType,Status,Techniques
 ```
