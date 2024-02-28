@@ -48,6 +48,21 @@ SecurityAlert
 | extend IPAddress = iif(EntityType == 'ip', EntityAddress, '')
 | extend Account = iif(EntityType == 'account', EntityAccountName, '')
 | where isnotempty(IPAddress) or isnotempty(Account) or isnotempty(HostName)
+
 // Aggregating by Time and Alert to consolidate all entities per Alert
 | summarize AccountList=make_set(Account), HostList = make_set(HostName) by TimeGenerated, AlertName,AlertSeverity,Description,AlertType,Status,Techniques
 ```
+Visualize the incidents generated in Microsoft Sentinel by MITRE ATT&CK tactics
+
+Data connector required for this query - Microsoft Sentinel Incidents (generated automatically if you create incidents in Sentinel)
+```
+SecurityIncident
+| where TimeGenerated > ago(30d)
+| summarize arg_min(TimeGenerated, *) by IncidentNumber
+| extend Tactics = tostring(AdditionalData.tactics)
+| where Tactics != "[]"
+| mv-expand todynamic(Tactics)
+| summarize Count=count()by tostring(Tactics)
+| sort by Count
+| render barchart with (title="Microsoft Sentinel incidents by MITRE ATT&CK tactic")
+``
