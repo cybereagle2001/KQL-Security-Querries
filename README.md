@@ -65,4 +65,14 @@ SecurityIncident
 | summarize Count=count()by tostring(Tactics)
 | sort by Count
 | render barchart with (title="Microsoft Sentinel incidents by MITRE ATT&CK tactic")
-``
+```
+# Microsoft Security Querries
+## Advanced Threat Hunt
+In order to identify the infected devices by a specific CVE we can use the following querry :
+```
+DeviceTvmSoftwareVulnerabilities
+| where CveId == "CVE-2024-6387"
+| project DeviceId, DeviceName, OSPlatform, OSVersion, OSArchitecture, SoftwareVendor, CveMitigationStatus
+```
+
+
