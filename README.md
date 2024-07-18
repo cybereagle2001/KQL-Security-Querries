@@ -10,7 +10,19 @@
 ![image](https://github.com/user-attachments/assets/6a3a1cb2-60ea-4173-a3c4-de2968078c23)
 
 
-This respirotry is created by @cybereagle2001(Oussama Ben Hadj Dahman) cybersecurity expert and researcher. The goal is to centralise the handy KQL (Kusto Query Language) querries that can help cybersecurity professionals in their daily life.
+This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cybersecurity expert and researcher, aims to centralize useful KQL (Kusto Query Language) queries. These queries are designed to assist cybersecurity professionals in their daily tasks, making their work more efficient and effective.
+
+## Table of Contents
+1. [Microsoft Sentinel Queries](#microsoft-sentinel-queries)
+    1. [Extracting High Severity Alerts from Microsoft Defender](#extracting-high-severity-alerts-from-microsoft-defender)
+    2. [Enhancing Investigation with Alert Links](#enhancing-investigation-with-alert-links)
+    3. [Extracting and Highlighting Affected Accounts, IPs, and Hosts](#extracting-and-highlighting-affected-accounts-ips-and-hosts)
+    4. [Identifying All Possible Threats on Devices and Servers](#identifying-all-possible-threats-on-devices-and-servers)
+    5. [Retrieving Alerts Related to Actual Incidents](#retrieving-alerts-related-to-actual-incidents)
+    6. [Visualizing Incidents by MITRE ATT&CK Tactics](#visualizing-incidents-by-mitre-attck-tactics)
+2. [Microsoft Security Queries](#microsoft-security-queries)
+    1. [Advanced Threat Hunt](#advanced-threat-hunt)
+    2. [Detailed Threat Hunt](#detailed-threat-hunt)
 
 ### Microsoft Sentinel Queries
 
