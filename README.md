@@ -12,18 +12,27 @@
 
 This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cybersecurity expert and researcher, aims to centralize useful KQL (Kusto Query Language) queries. These queries are designed to assist cybersecurity professionals in their daily tasks, making their work more efficient and effective.
 
-## Table of Contents
-1. [Microsoft Sentinel Queries](#microsoft-sentinel-queries)
-    1. [Extracting High Severity Alerts from Microsoft Defender](#extracting-high-severity-alerts-from-microsoft-defender)
-    2. [Enhancing Investigation with Alert Links](#enhancing-investigation-with-alert-links)
-    3. [Extracting and Highlighting Affected Accounts, IPs, and Hosts](#extracting-and-highlighting-affected-accounts-ips-and-hosts)
-    4. [Identifying All Possible Threats on Devices and Servers](#identifying-all-possible-threats-on-devices-and-servers)
-    5. [Retrieving Alerts Related to Actual Incidents](#retrieving-alerts-related-to-actual-incidents)
-    6. [Visualizing Incidents by MITRE ATT&CK Tactics](#visualizing-incidents-by-mitre-attck-tactics)
-2. [Microsoft Security Queries](#microsoft-security-queries)
-    1. [Advanced Threat Hunt](#advanced-threat-hunt)
-    2. [Detailed Threat Hunt](#detailed-threat-hunt)
+Certainly! Here's a more aesthetic version of the menu:
 
+---
+
+## Table of Contents
+
+### 1. Microsoft Sentinel Queries
+   - [Extracting High Severity Alerts from Microsoft Defender](#extracting-high-severity-alerts-from-microsoft-defender)
+   - [Enhancing Investigation with Alert Links](#enhancing-investigation-with-alert-links)
+   - [Extracting and Highlighting Affected Accounts, IPs, and Hosts](#extracting-and-highlighting-affected-accounts-ips-and-hosts)
+   - [Identifying All Possible Threats on Devices and Servers](#identifying-all-possible-threats-on-devices-and-servers)
+   - [Retrieving Alerts Related to Actual Incidents](#retrieving-alerts-related-to-actual-incidents)
+   - [Visualizing Incidents by MITRE ATT&CK Tactics](#visualizing-incidents-by-mitre-attck-tactics)
+
+### 2. Microsoft Security Queries
+   - [Advanced Threat Hunt](#advanced-threat-hunt)
+   - [Detailed Threat Hunt](#detailed-threat-hunt)
+
+---
+
+This version uses indentation and a cleaner layout to improve readability and aesthetics.
 ### Microsoft Sentinel Queries
 
 Microsoft Sentinel is a renowned Security Information and Event Management (SIEM) solution in modern cybersecurity, offered as a service by Microsoft. It enables comprehensive data visualization and analytics through specific workbooks activated based on each connector. Additionally, it triggers relevant logs for in-depth monitoring and investigation.
