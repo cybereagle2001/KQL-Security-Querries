@@ -52,6 +52,38 @@ SecurityAlert
 // Aggregating by Time and Alert to consolidate all entities per Alert
 | summarize AccountList=make_set(Account), HostList = make_set(HostName) by TimeGenerated, AlertName,AlertSeverity,Description,AlertType,Status,Techniques
 ```
+In order to retrieve only alerts that they are related to actual incident or turned into incident we can use the following querry :
+```
+SecurityAlert
+// filter the logs by Status and source
+| where ProviderName contains "MD"
+    and Status != "Resolved"
+    and IsIncident == True
+//extend EntitiesR
+| extend EntitiesDynamicArray = parse_json(Entities)
+| mv-expand EntitiesDynamicArray
+// Parsing relevant entity column extract hostname and IP
+| extend
+    EntityType = tostring(parse_json(EntitiesDynamicArray).Type),
+    EntityAddress = tostring(EntitiesDynamicArray.Address),
+    EntityHostName = tostring(EntitiesDynamicArray.HostName),
+    EntityAccountName = tostring(EntitiesDynamicArray.Name)
+| extend HostName = iif(EntityType == 'host', EntityHostName, '')
+| extend IPAddress = iif(EntityType == 'ip', EntityAddress, '')
+| extend Account = iif(EntityType == 'account', EntityAccountName, '')
+| where isnotempty(IPAddress) or isnotempty(Account) or isnotempty(HostName)
+// Aggregating by Time and Alert to consolidate all entities per Alert
+| summarize AccountList=make_set(Account), HostList = make_set(HostName)
+    by
+    TimeGenerated,
+    AlertName,
+    AlertSeverity,
+    Description,
+    AlertType,
+    Status,
+    Techniques,
+    AlertLink
+```
 Visualize the incidents generated in Microsoft Sentinel by MITRE ATT&CK tactics
 
 Data connector required for this query - Microsoft Sentinel Incidents (generated automatically if you create incidents in Sentinel)
@@ -73,6 +105,78 @@ In order to identify the infected devices by a specific CVE we can use the follo
 DeviceTvmSoftwareVulnerabilities
 | where CveId == "CVE-2024-6387"
 | project DeviceId, DeviceName, OSPlatform, OSVersion, OSArchitecture, SoftwareVendor, CveMitigationStatus
+```
+### Detailed Threat Hunt
+
+This KQL (Kusto Query Language) query is designed to identify devices that are vulnerable to a specific CVE (Common Vulnerabilities and Exposures) ID, based on their association with critical identities within a network. The query consists of three main parts: defining critical identities, identifying critical devices associated with these identities, and filtering for devices vulnerable to a specific CVE. Here’s a detailed breakdown:
+
+#### 1. Defining Critical Identities
+
+```kql
+let CriticalIdentities = 
+    ExposureGraphNodes
+    | where set_has_element(Categories, "identity")
+    | where isnotnull(NodeProperties.rawData.criticalityLevel) and NodeProperties.rawData.criticalityLevel.criticalityLevel < 4 
+    | distinct NodeName;
+```
+
+- **ExposureGraphNodes**: This table contains information about various nodes in the exposure graph, such as users, devices, or other entities.
+- **where set_has_element(Categories, "identity")**: Filters the nodes to include only those categorized as "identity".
+- **where isnotnull(NodeProperties.rawData.criticalityLevel) and NodeProperties.rawData.criticalityLevel.criticalityLevel < 4**: Further filters the identities to include only those with a defined criticality level that is less than 4 (assuming a scale where lower numbers indicate higher criticality).
+- **distinct NodeName**: Selects unique node names that meet the above criteria, resulting in a set of critical identities.
+
+#### 2. Identifying Critical Devices
+
+```kql
+let CriticalDevices = 
+    ExposureGraphEdges 
+    | where EdgeLabel == @"can authenticate to"
+    | join ExposureGraphNodes on $left.TargetNodeId==$right.NodeId
+    | extend DName = tostring(NodeProperties.rawData.deviceName)
+    | extend isLocalAdmin = EdgeProperties.rawData.userRightsOnDevice.isLocalAdmin
+    | where SourceNodeName has_any (CriticalIdentities)
+    | distinct DName;
+```
+
+- **ExposureGraphEdges**: This table contains information about relationships (edges) between nodes in the exposure graph.
+- **where EdgeLabel == @"can authenticate to"**: Filters the edges to include only those where the relationship type is "can authenticate to", indicating that one node (identity) can authenticate to another node (device).
+- **join ExposureGraphNodes on $left.TargetNodeId==$right.NodeId**: Joins the edges with the nodes to get additional properties of the target nodes (devices).
+- **extend DName = tostring(NodeProperties.rawData.deviceName)**: Extracts the device name from the node properties.
+- **extend isLocalAdmin = EdgeProperties.rawData.userRightsOnDevice.isLocalAdmin**: Extracts whether the identity has local admin rights on the device.
+- **where SourceNodeName has_any (CriticalIdentities)**: Filters to include only edges where the source node name is one of the critical identities identified earlier.
+- **distinct DName**: Selects unique device names associated with these critical identities.
+
+#### 3. Filtering for Vulnerable Devices
+
+```kql
+DeviceTvmSoftwareVulnerabilities 
+| where CveId == "CVE-2024-38021"
+| where DeviceName has_any (CriticalDevices)
+```
+
+- **DeviceTvmSoftwareVulnerabilities**: This table contains information about software vulnerabilities on devices.
+- **where CveId == "CVE-2024-38021"**: Filters the table to include only records related to the specific CVE ID "CVE-2024-38021".
+- **where DeviceName has_any (CriticalDevices)**: Further filters to include only devices that are in the list of critical devices identified earlier.
+
+#### Final Querry
+```
+let CriticalIdentities =
+ExposureGraphNodes
+| where set_has_element(Categories, "identity")
+| where isnotnull(NodeProperties.rawData.criticalityLevel) and
+NodeProperties.rawData.criticalityLevel.criticalityLevel < 4 
+| distinct NodeName;
+let CriticalDevices =
+ExposureGraphEdges 
+| where EdgeLabel == @"can authenticate to"
+| join ExposureGraphNodes on $left.TargetNodeId==$right.NodeId
+| extend DName = tostring(NodeProperties.rawData.deviceName)
+| extend isLocalAdmin = EdgeProperties.rawData.userRightsOnDevice.isLocalAdmin
+| where SourceNodeName has_any (CriticalIdentities)
+| distinct DName;
+DeviceTvmSoftwareVulnerabilities 
+| where CveId == "CVE-2024-38021"
+| where DeviceName has_any (CriticalDevices)
 ```
 
 
