@@ -12,9 +12,7 @@
 
 This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cybersecurity expert and researcher, aims to centralize useful KQL (Kusto Query Language) queries. These queries are designed to assist cybersecurity professionals in their daily tasks, making their work more efficient and effective.
 
-Certainly! Here's a more aesthetic version of the menu:
-
----
+<center>
 
 ## Table of Contents
 
@@ -30,9 +28,8 @@ Certainly! Here's a more aesthetic version of the menu:
    - [Advanced Threat Hunt](#advanced-threat-hunt)
    - [Detailed Threat Hunt](#detailed-threat-hunt)
 
----
+</center>
 
-This version uses indentation and a cleaner layout to improve readability and aesthetics.
 ### Microsoft Sentinel Queries
 
 Microsoft Sentinel is a renowned Security Information and Event Management (SIEM) solution in modern cybersecurity, offered as a service by Microsoft. It enables comprehensive data visualization and analytics through specific workbooks activated based on each connector. Additionally, it triggers relevant logs for in-depth monitoring and investigation.
