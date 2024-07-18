@@ -125,6 +125,85 @@ SecurityIncident
 | render barchart with (title="Microsoft Sentinel incidents by MITRE ATT&CK tactic")
 ```
 ### OfficeActivity Table
+Certainly! Here are some well-documented queries for analyzing `OfficeActivity` in Microsoft Sentinel. These queries can help you gain insights into activities related to Microsoft Office 365 services:
+
+#### Query 1: Count of Office 365 Activities by Operation Type
+
+This query provides a count of Office 365 activities grouped by operation type, helping you understand which operations are most frequent.
+
+```kql
+OfficeActivity
+| summarize Count = count() by Operation
+| order by Count desc
+```
+
+- **Purpose**: Provides an overview of the distribution of activities based on their operation types.
+- **Usage**: Useful for understanding which operations are most commonly performed within Office 365, highlighting potentially abnormal or suspicious activities if anomalies are detected.
+
+---
+
+#### Query 2: Top Users by Office 365 Activities
+
+This query identifies the top users by the number of Office 365 activities they have performed.
+
+```kql
+OfficeActivity
+| summarize Count = count() by User
+| top 10 by Count desc
+```
+
+- **Purpose**: Identifies users who are most active within Office 365, which can help prioritize monitoring and investigations.
+- **Usage**: Useful for identifying high-risk users or detecting unusual behavior by comparing current activity levels with established baselines.
+
+---
+
+#### Query 3: Office 365 File Access Activities
+
+This query focuses on file access activities within Office 365, providing insights into who accessed which files and when.
+
+```kql
+OfficeActivity
+| where Operation in ("FileAccessed", "FileModified", "FileDeleted")
+| summarize Count = count() by Operation, FileName, User
+| order by Count desc
+```
+
+- **Purpose**: Monitors file access, modifications, and deletions within Office 365, allowing you to track and investigate potential data breaches or unauthorized file activities.
+- **Usage**: Helps in identifying suspicious file access patterns or detecting insider threats by analyzing file activities across users and operations.
+
+---
+
+#### Query 4: Office 365 Mailbox Activities
+
+This query focuses on mailbox activities within Office 365, including email sends, receives, and deletions.
+
+```kql
+OfficeActivity
+| where Operation in ("SendMail", "ReceiveMail", "DeleteMail")
+| summarize Count = count() by Operation, User, RecipientEmailAddress
+| order by Count desc
+```
+
+- **Purpose**: Provides visibility into email-related activities within Office 365 mailboxes, helping to detect phishing attempts, data leaks, or compromised accounts.
+- **Usage**: Enables monitoring of critical email operations and identification of anomalous behaviors, such as mass email deletions or unusual sending patterns.
+
+---
+
+#### Query 5: Office 365 SharePoint Activities
+
+This query focuses on SharePoint activities within Office 365, such as document uploads, downloads, and modifications.
+
+```kql
+OfficeActivity
+| where Operation in ("FileUploaded", "FileDownloaded", "FileModified")
+| summarize Count = count() by Operation, SiteURL, User
+| order by Count desc
+```
+
+- **Purpose**: Tracks SharePoint activities to monitor document management and collaboration within Office 365, facilitating compliance and security audits.
+- **Usage**: Identifies abnormal activities in SharePoint, such as unauthorized file uploads or unusual access patterns, to mitigate potential risks and enhance data protection.
+
+---
 
 ### Anomalies Table
 
