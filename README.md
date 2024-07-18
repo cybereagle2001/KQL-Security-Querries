@@ -181,7 +181,7 @@ DeviceTvmSoftwareVulnerabilities
 - **where CveId == "CVE-2024-38021"**: Filters the table to include only records related to the specific CVE ID "CVE-2024-38021".
 - **where DeviceName has_any (CriticalDevices)**: Further filters to include only devices that are in the list of critical devices identified earlier.
 
-#### Final Querry
+#### 4. Final Querry
 ```kql
 let CriticalIdentities =
 ExposureGraphNodes
