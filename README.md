@@ -1,9 +1,10 @@
+<center>
 # KQL-SECURITY-QUERRIES
 <a target="_blank" href="Microsoft" title="Microsoft"><img src="https://img.shields.io/static/v1?label=Product&message=Microsoft&color=red"></a>
 <a target="_blank" href="Sentinel" title="Sentinel"><img src="https://img.shields.io/static/v1?label=SIEM&message=Sentinel&color=blue"></a>
 <a target="_blank" href="Defender" title="Defender"><img src="https://img.shields.io/static/v1?label=AntiVirus&message=Defender&color=green"></a>
 ![image](https://github.com/user-attachments/assets/6a3a1cb2-60ea-4173-a3c4-de2968078c23)
-
+</center>
 This respirotry is created by @cybereagle2001(Oussama Ben Hadj Dahman) cybersecurity expert and researcher. The goal is to centralise the handy KQL (Kusto Query Language) querries that can help cybersecurity professionals in their daily life.
 
 ### Microsoft Sentinel Queries
