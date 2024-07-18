@@ -17,12 +17,14 @@ This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cyberse
 ## Table of Contents
 
 ### 1. Microsoft Sentinel Queries
-   - [Extracting High Severity Alerts from Microsoft Defender](#extracting-high-severity-alerts-from-microsoft-defender)
-   - [Enhancing Investigation with Alert Links](#enhancing-investigation-with-alert-links)
-   - [Extracting and Highlighting Affected Accounts, IPs, and Hosts](#extracting-and-highlighting-affected-accounts-ips-and-hosts)
-   - [Identifying All Possible Threats on Devices and Servers](#identifying-all-possible-threats-on-devices-and-servers)
-   - [Retrieving Alerts Related to Actual Incidents](#retrieving-alerts-related-to-actual-incidents)
-   - [Visualizing Incidents by MITRE ATT&CK Tactics](#visualizing-incidents-by-mitre-attck-tactics)
+   - [Security Alerts](#SecurityAlert-Table)
+      - [Extracting High Severity Alerts from Microsoft Defender](#extracting-high-severity-alerts-from-microsoft-defender)
+      - [Enhancing Investigation with Alert Links](#enhancing-investigation-with-alert-links)
+      - [Extracting and Highlighting Affected Accounts, IPs, and Hosts](#extracting-and-highlighting-affected-accounts-ips-and-hosts)
+      - [Identifying All Possible Threats on Devices and Servers](#identifying-all-possible-threats-on-devices-and-servers)
+      - [Retrieving Alerts Related to Actual Incidents](#retrieving-alerts-related-to-actual-incidents)
+   - [SecurityIncidents](#SecurityIncident-Table)
+      - [Visualizing Incidents by MITRE ATT&CK Tactics](#visualizing-incidents-by-mitre-attck-tactics)
 
 ### 2. Microsoft Security Queries
    - [Advanced Threat Hunt](#advanced-threat-hunt)
@@ -30,9 +32,11 @@ This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cyberse
 
 </center>
 
-### Microsoft Sentinel Queries
+## Microsoft Sentinel Queries
 
 Microsoft Sentinel is a renowned Security Information and Event Management (SIEM) solution in modern cybersecurity, offered as a service by Microsoft. It enables comprehensive data visualization and analytics through specific workbooks activated based on each connector. Additionally, it triggers relevant logs for in-depth monitoring and investigation.
+
+### SecurityAlert Table
 
 #### Extracting High Severity Alerts from Microsoft Defender
 
@@ -104,7 +108,7 @@ SecurityAlert
 | where isnotempty(IPAddress) or isnotempty(Account) or isnotempty(HostName)
 | summarize AccountList = make_set(Account), HostList = make_set(HostName) by TimeGenerated, AlertName, AlertSeverity, Description, AlertType, Status, Techniques, AlertLink
 ```
-
+### SecurityIncident Table
 #### Visualizing Incidents by MITRE ATT&CK Tactics
 
 To visualize incidents generated in Microsoft Sentinel by MITRE ATT&CK tactics, use the following query. Note that the required data connector is Microsoft Sentinel Incidents, which is generated automatically if you create incidents in Sentinel.
@@ -120,6 +124,7 @@ SecurityIncident
 | sort by Count
 | render barchart with (title="Microsoft Sentinel incidents by MITRE ATT&CK tactic")
 ```
+
 
 # Microsoft Security Querries
 ## Advanced Threat Hunt
