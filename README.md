@@ -124,7 +124,7 @@ SecurityIncident
 | sort by Count
 | render barchart with (title="Microsoft Sentinel incidents by MITRE ATT&CK tactic")
 ```
-
+### OfficeActivity Table
 
 # Microsoft Security Querries
 ## Advanced Threat Hunt
