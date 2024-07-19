@@ -206,6 +206,7 @@ This query provides a count of Office 365 activities grouped by operation type, 
 OfficeActivity
 | summarize Count = count() by Operation
 | order by Count desc
+| render barchart with (title="Microsoft Office Operations")
 ```
 
 - **Purpose**: Provides an overview of the distribution of activities based on their operation types.
@@ -219,7 +220,7 @@ This query identifies the top users by the number of Office 365 activities they 
 
 ```kql
 OfficeActivity
-| summarize Count = count() by User
+| summarize Count = count() by UserId
 | top 10 by Count desc
 ```
 
@@ -235,7 +236,7 @@ This query focuses on file access activities within Office 365, providing insigh
 ```kql
 OfficeActivity
 | where Operation in ("FileAccessed", "FileModified", "FileDeleted")
-| summarize Count = count() by Operation, FileName, User
+| summarize Count = count() by Operation, SourceFileName , UserId , ExternalAccess
 | order by Count desc
 ```
 
@@ -250,8 +251,8 @@ This query focuses on mailbox activities within Office 365, including email send
 
 ```kql
 OfficeActivity
-| where Operation in ("SendMail", "ReceiveMail", "DeleteMail")
-| summarize Count = count() by Operation, User, RecipientEmailAddress
+| where RecordType contains "Exchange"
+| summarize Count = count() by Operation, MailboxOwnerUPN, DestMailboxOwnerUPN
 | order by Count desc
 ```
 
@@ -267,7 +268,7 @@ This query focuses on SharePoint activities within Office 365, such as document 
 ```kql
 OfficeActivity
 | where Operation in ("FileUploaded", "FileDownloaded", "FileModified")
-| summarize Count = count() by Operation, SiteURL, User
+| summarize Count = count() by Operation, Site_Url, SourceFileName, UserId
 | order by Count desc
 ```
 
@@ -275,7 +276,6 @@ OfficeActivity
 - **Usage**: Identifies abnormal activities in SharePoint, such as unauthorized file uploads or unusual access patterns, to mitigate potential risks and enhance data protection.
 
 ---
-
 ### Anomalies Table
 
 # Microsoft Security Querries
