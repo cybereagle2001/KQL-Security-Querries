@@ -25,6 +25,7 @@ This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cyberse
       - [Identifying All Possible Threats on Devices and Servers](#identifying-all-possible-threats-on-devices-and-servers)
       - [Retrieving Alerts Related to Actual Incidents](#retrieving-alerts-related-to-actual-incidents)
    - [SecurityIncidents](#SecurityIncident-Table)
+      - [Table Description](#Table-Description)
       - [Visualizing Incidents by MITRE ATT&CK Tactics](#visualizing-incidents-by-mitre-attck-tactics)
    - [OfficeActivity Table](#OfficeActivity-Table)
       - [Count of Office 365 Activities by Operation Type](#Count-of-Office-365-Activities-by-Operation-Type)
@@ -180,6 +181,77 @@ SecurityAlert
 ```
 
 ### SecurityIncident Table
+#### Table Description
+The `SecurityIncident` table in Microsoft Sentinel is a key component for managing and investigating security incidents. This table consolidates alerts and events from various sources into incidents, providing a centralized view for security analysts to track and respond to potential security breaches.
+
+### Structure of the SecurityIncident Table
+
+The `SecurityIncident` table comprises various columns, each representing specific information about a security incident. Here are some of the important fields you might find in this table:
+
+1. **TimeGenerated**:
+   - **Type**: datetime
+   - **Description**: The timestamp when the incident was generated or first detected.
+
+2. **IncidentNumber**:
+   - **Type**: string
+   - **Description**: A unique identifier for the incident.
+
+3. **Title**:
+   - **Type**: string
+   - **Description**: A brief title or description of the incident.
+
+4. **Severity**:
+   - **Type**: string
+   - **Description**: The severity level of the incident (e.g., "Informational", "Low", "Medium", "High").
+
+5. **Status**:
+   - **Type**: string
+   - **Description**: The current status of the incident (e.g., "New", "Active", "Closed").
+
+6. **Owner**:
+   - **Type**: string
+   - **Description**: The user or team assigned to investigate and resolve the incident.
+
+7. **ProviderName**:
+   - **Type**: string
+   - **Description**: The name of the provider or source that generated the incident.
+
+8. **StartTime**:
+   - **Type**: datetime
+   - **Description**: The start time of the earliest event or alert that contributed to the incident.
+
+9. **EndTime**:
+   - **Type**: datetime
+   - **Description**: The end time of the latest event or alert that contributed to the incident.
+
+10. **AlertIds**:
+    - **Type**: dynamic
+    - **Description**: A JSON array of alert identifiers associated with the incident.
+
+11. **Entities**:
+    - **Type**: dynamic
+    - **Description**: A JSON array of entities involved in the incident, such as users, devices, IP addresses, and files.
+
+12. **Techniques**:
+    - **Type**: string
+    - **Description**: The MITRE ATT&CK techniques associated with the incident, if applicable.
+
+13. **Description**:
+    - **Type**: string
+    - **Description**: A detailed description of the incident, providing more context about the detected issue.
+
+14. **Classification**:
+    - **Type**: string
+    - **Description**: The classification of the incident (e.g., "True Positive", "False Positive").
+
+15. **Comments**:
+    - **Type**: string
+    - **Description**: Any additional comments or notes added by analysts regarding the incident.
+
+16. **RelatedIncidents**:
+    - **Type**: dynamic
+    - **Description**: A JSON array of related incident identifiers.
+
 #### Visualizing Incidents by MITRE ATT&CK Tactics
 
 To visualize incidents generated in Microsoft Sentinel by MITRE ATT&CK tactics, use the following query. Note that the required data connector is Microsoft Sentinel Incidents, which is generated automatically if you create incidents in Sentinel.
@@ -196,7 +268,95 @@ SecurityIncident
 | render barchart with (title="Microsoft Sentinel incidents by MITRE ATT&CK tactic")
 ```
 ### OfficeActivity Table
-Certainly! Here are some well-documented queries for analyzing `OfficeActivity` in Microsoft Sentinel. These queries can help you gain insights into activities related to Microsoft Office 365 services:
+### Structure of the OfficeActivity Table
+
+The `OfficeActivity` table in Microsoft Sentinel logs various user activities within Office 365 applications, providing insights into actions such as email activity, file access, and collaboration events. This table is essential for monitoring and investigating user actions to ensure compliance and security.
+
+Here are some of the key fields in the `OfficeActivity` table:
+
+1. **TimeGenerated**:
+   - **Type**: datetime
+   - **Description**: The timestamp when the activity was generated.
+
+2. **RecordType**:
+   - **Type**: string
+   - **Description**: The type of record, indicating the specific Office 365 service involved (e.g., Exchange, SharePoint, OneDrive).
+
+3. **Operation**:
+   - **Type**: string
+   - **Description**: The type of operation or action performed (e.g., MailSend, FileAccessed, UserLoggedIn).
+
+4. **UserId**:
+   - **Type**: string
+   - **Description**: The unique identifier of the user who performed the action.
+
+5. **UserPrincipalName**:
+   - **Type**: string
+   - **Description**: The principal name of the user (e.g., email address).
+
+6. **ClientIP**:
+   - **Type**: string
+   - **Description**: The IP address from which the user performed the action.
+
+7. **Workload**:
+   - **Type**: string
+   - **Description**: The specific Office 365 workload involved (e.g., Exchange, SharePoint).
+
+8. **ObjectId**:
+   - **Type**: string
+   - **Description**: The unique identifier of the object involved in the activity (e.g., email message ID, file ID).
+
+9. **OrganizationId**:
+   - **Type**: string
+   - **Description**: The unique identifier of the organization.
+
+10. **UserType**:
+    - **Type**: string
+    - **Description**: The type of user who performed the action (e.g., Member, Guest).
+
+11. **UserAgent**:
+    - **Type**: string
+    - **Description**: Information about the user's browser or client application used to perform the action.
+
+12. **ItemName**:
+    - **Type**: string
+    - **Description**: The name of the item involved in the activity (e.g., email subject, file name).
+
+13. **ResultStatus**:
+    - **Type**: string
+    - **Description**: The status of the operation (e.g., Succeeded, Failed).
+
+14. **EventSource**:
+    - **Type**: string
+    - **Description**: The source of the event (e.g., Exchange, SharePoint).
+
+15. **SourceFileExtension**:
+    - **Type**: string
+    - **Description**: The file extension of the source file involved in the activity, if applicable.
+
+16. **SourceRelativeUrl**:
+    - **Type**: string
+    - **Description**: The relative URL of the source item involved in the activity, if applicable.
+
+17. **DestinationRelativeUrl**:
+    - **Type**: string
+    - **Description**: The relative URL of the destination item involved in the activity, if applicable.
+
+18. **Actor**:
+    - **Type**: string
+    - **Description**: The user or service account that performed the action.
+
+19. **FolderPath**:
+    - **Type**: string
+    - **Description**: The path of the folder involved in the activity, if applicable.
+
+20. **SiteUrl**:
+    - **Type**: string
+    - **Description**: The URL of the site where the activity occurred, if applicable.
+
+21. **UniqueSharingId**:
+    - **Type**: string
+    - **Description**: The unique identifier for sharing operations, if applicable.
 
 #### Query 1: Count of Office 365 Activities by Operation Type
 
