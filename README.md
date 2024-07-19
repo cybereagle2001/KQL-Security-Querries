@@ -32,8 +32,8 @@ This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cyberse
       - [Office 365 File Access Activities](#Office-365-File-Access-Activities)
       - [Office 365 Mailbox Activities](#Office-365-Mailbox-Activities)
       - [Office 365 SharePoint Activities](#Office-365-SharePoint-Activities)
-   - [Anomalies Table](#Anomalies Table)
-   - 
+   - [Anomalies Table](#Anomalies-Table)
+
 ### 2. Microsoft Security Queries
    - [Advanced Threat Hunt](#advanced-threat-hunt)
    - [Detailed Threat Hunt](#detailed-threat-hunt)
