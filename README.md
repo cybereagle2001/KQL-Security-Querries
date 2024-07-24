@@ -34,6 +34,7 @@ This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cyberse
       - [Office 365 Mailbox Activities](#Office-365-Mailbox-Activities)
       - [Office 365 SharePoint Activities](#Office-365-SharePoint-Activities)
    - [Anomalies Table](#Anomalies-Table)
+     - [Query to Retrieve Detailed Anomalies Data](#Query-1:-Query-to-Retrieve-Detailed-Anomalies-Data)
 
 ### 2. Microsoft Security Queries
    - [Advanced Threat Hunt](#advanced-threat-hunt)
@@ -437,6 +438,48 @@ OfficeActivity
 
 ---
 ### Anomalies Table
+The `Anomalies` table in Microsoft Sentinel contains data related to unusual or suspicious activities detected within your environment. It helps identify potential security threats by logging various attributes of anomalies observed. Here is a detailed description of each attribute in the `Anomalies` table:
+
+1. **TimeGenerated**:
+      - The timestamp when the anomaly was detected.
+2. **Id**:
+   - A unique identifier for the anomaly event.
+3. **Score**:
+   - A numerical value representing the severity or confidence of the anomaly.
+4. **UserName**:
+   - The name of the user associated with the anomaly.
+5. **VendorName**:
+   - The name of the vendor that provided the anomaly detection.
+6. **AnomalyTemplateName**:
+   - The template name used for detecting the anomaly.
+7. **Description**:
+   - A textual description of the anomaly.
+8. **StartTime**:
+   - The timestamp indicating when the anomaly activity started.
+9. **EndTime**:
+    - The timestamp indicating when the anomaly activity ended.
+10. **Entities**:
+    - A JSON array containing entities related to the anomaly, such as users, devices, or IP addresses.
+11. **EntitiesDynamicArray**:
+    - The expanded version of the `Entities` field, used to parse and work with individual entities.
+12. **EntityType**:
+    - The type of entity involved in the anomaly, such as user, device, or IP address.
+13. **IsDomainJoined**:
+     - A boolean indicating whether the entity is joined to a domain.
+
+These attributes provide comprehensive information about anomalies detected in your environment, enabling detailed analysis and response to potential security incidents.
+
+#### Query 1: Query to Retrieve Detailed Anomalies Data
+This KQL (Kusto Query Language) query is designed to retrieve detailed information about anomalies detected within your environment from the Anomalies table in Microsoft Sentinel. The query expands the Entities field to parse individual entities and extracts relevant details such as entity type and domain join status. The final output includes comprehensive information about each anomaly, facilitating detailed analysis and response.
+
+```
+Anomalies
+| extend EntitiesDynamicArray = parse_json(Entities)
+| mv-expand EntitiesDynamicArray
+| extend EntityType = tostring(parse_json(EntitiesDynamicArray).Type), 
+         IsDomainJoined = tostring(parse_json(EntitiesDynamicArray).IsDomainJoined)
+| project TimeGenerated, Id, Score, UserName,EntityType, IsDomainJoined, VendorName, AnomalyTemplateName, Description, StartTime, EndTime
+```
 
 # Microsoft Security Querries
 ## Advanced Threat Hunt
