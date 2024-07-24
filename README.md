@@ -472,7 +472,7 @@ These attributes provide comprehensive information about anomalies detected in y
 #### Query to Retrieve Detailed Anomalies Data
 This KQL (Kusto Query Language) query is designed to retrieve detailed information about anomalies detected within your environment from the Anomalies table in Microsoft Sentinel. The query expands the Entities field to parse individual entities and extracts relevant details such as entity type and domain join status. The final output includes comprehensive information about each anomaly, facilitating detailed analysis and response.
 
-```
+```kql
 Anomalies
 | extend EntitiesDynamicArray = parse_json(Entities)
 | mv-expand EntitiesDynamicArray
