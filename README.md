@@ -34,7 +34,7 @@ This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cyberse
       - [Office 365 Mailbox Activities](#Office-365-Mailbox-Activities)
       - [Office 365 SharePoint Activities](#Office-365-SharePoint-Activities)
    - [Anomalies Table](#Anomalies-Table)
-     - [Query to Retrieve Detailed Anomalies Data](#Query-1:-Query-to-Retrieve-Detailed-Anomalies-Data)
+     - [Query to Retrieve Detailed Anomalies Data](#Query-to-Retrieve-Detailed-Anomalies-Data)
 
 ### 2. Microsoft Security Queries
    - [Advanced Threat Hunt](#advanced-threat-hunt)
