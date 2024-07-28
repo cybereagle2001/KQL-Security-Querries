@@ -474,8 +474,115 @@ The **Anomalies** table in **Azure Sentinel** holds information about anomalies 
 29. **Tactics**: Tactics associated with the anomaly.
 
 These attributes provide comprehensive information about anomalies detected in your environment, enabling detailed analysis and response to potential security incidents.
+### Queries for the Anomalies Table in Azure Sentinel
 
-#### Query to Retrieve Detailed Anomalies Data
+#### Query 1: Retrieve High-Scoring Anomalies
+
+This query retrieves anomalies with a score greater than 80. Higher scores indicate potentially more significant or dangerous anomalies.
+
+```kql
+Anomalies
+| where Score > 80
+| project TimeGenerated, Id, Score, UserName, Description, AnomalyTemplateName, StartTime, EndTime
+```
+
+#### Query 2: Identify Anomalies by Specific Entity Type
+
+This query filters anomalies to show only those related to a specific entity type, such as "user" or "device". Change `"user"` to any desired entity type.
+
+```kql
+Anomalies
+| extend EntitiesDynamicArray = parse_json(Entities)
+| mv-expand EntitiesDynamicArray
+| extend EntityType = tostring(parse_json(EntitiesDynamicArray).Type)
+| where EntityType == "user"
+| project TimeGenerated, Id, Score, UserName, EntityType, Description, AnomalyTemplateName, StartTime, EndTime
+```
+
+#### Query 3: List Anomalies by Anomaly Template Name
+
+This query lists anomalies grouped by the name of the anomaly template that generated them, providing a count of each type.
+
+```kql
+Anomalies
+| summarize Count = count() by AnomalyTemplateName
+| order by Count desc
+```
+
+#### Query 4: Anomalies Involving Specific IP Address
+
+This query retrieves anomalies involving a specific source IP address. Replace `"192.168.1.1"` with the desired IP address.
+
+```kql
+Anomalies
+| where SourceIpAddress == "192.168.1.1"
+| project TimeGenerated, Id, Score, UserName, SourceIpAddress, Description, AnomalyTemplateName, StartTime, EndTime
+```
+
+#### Query 5: Anomalies by Time Range
+
+This query filters anomalies based on a specified time range. Change `startTime` and `endTime` to the desired time range in UTC format.
+
+```kql
+let startTime = datetime(2024-07-01T00:00:00Z);
+let endTime = datetime(2024-07-31T23:59:59Z);
+Anomalies
+| where TimeGenerated between (startTime .. endTime)
+| project TimeGenerated, Id, Score, UserName, Description, AnomalyTemplateName, StartTime, EndTime
+```
+
+#### Query 6: Anomalies with Extended Properties
+
+This query retrieves anomalies with specific extended properties, allowing for more detailed analysis. Replace `"PropertyKey"` and `"PropertyValue"` with the desired key-value pair.
+
+```kql
+Anomalies
+| extend ExtendedPropertiesJson = parse_json(ExtendedProperties)
+| where ExtendedPropertiesJson.PropertyKey == "PropertyValue"
+| project TimeGenerated, Id, Score, UserName, Description, AnomalyTemplateName, StartTime, EndTime, ExtendedProperties
+```
+
+#### Query 7: List Anomalies by Source System
+
+This query lists anomalies grouped by the source system that collected the events, providing a count of each type.
+
+```kql
+Anomalies
+| summarize Count = count() by SourceSystem
+| order by Count desc
+```
+
+#### Query 8: Anomalies by Location
+
+This query retrieves anomalies based on a specific source or destination location. Change the `"LocationName"` to the desired location.
+
+```kql
+Anomalies
+| extend SourceLocationJson = parse_json(SourceLocation), DestinationLocationJson = parse_json(DestinationLocation)
+| where SourceLocationJson.locationName == "LocationName" or DestinationLocationJson.locationName == "LocationName"
+| project TimeGenerated, Id, Score, UserName, Description, AnomalyTemplateName, StartTime, EndTime, SourceLocation, DestinationLocation
+```
+
+#### Query 9: Anomalies by Rule Status
+
+This query filters anomalies by the status of the anomaly analytics rule (e.g., Production, Flighting).
+
+```kql
+Anomalies
+| where RuleStatus == "Production"
+| project TimeGenerated, Id, Score, UserName, Description, AnomalyTemplateName, StartTime, EndTime
+```
+
+#### Query 10: Anomalies with Insights
+
+This query retrieves anomalies with activity or device insights, providing additional context for investigation.
+
+```kql
+Anomalies
+| where isnotempty(ActivityInsights) or isnotempty(DeviceInsights)
+| project TimeGenerated, Id, Score, UserName, Description, AnomalyTemplateName, StartTime, EndTime, ActivityInsights, DeviceInsights
+```
+#### Query 11: to Retrieve Detailed Anomalies Data
 This KQL (Kusto Query Language) query is designed to retrieve detailed information about anomalies detected within your environment from the Anomalies table in Microsoft Sentinel. The query expands the Entities field to parse individual entities and extracts relevant details such as entity type and domain join status. The final output includes comprehensive information about each anomaly, facilitating detailed analysis and response.
 
 ```kql
