@@ -443,35 +443,64 @@ OfficeActivity
 
 The **Anomalies** table in **Azure Sentinel** holds information about anomalies detected by active anomaly analytics rules. These anomalies provide insights into potentially suspicious activities within your environment. Below is a brief description of the columns in this table:
 
-1. **ActivityInsights**: Insights about activities related to the anomaly, presented in JSON format.
-2. **AnomalyDetails**: General information about the rule and algorithm that generated the anomaly, including explanations, in JSON format.
-3. **AnomalyReasons**: Detailed explanation of the anomaly, provided as JSON.
-4. **AnomalyTemplateId**: ID of the anomaly template that generated the anomaly.
-5. **AnomalyTemplateName**: Name of the anomaly template that generated the anomaly.
-6. **AnomalyTemplateVersion**: Version of the anomaly template that generated the anomaly.
-7. **_BilledSize**: Record size in bytes.
-8. **Description**: Description of the anomaly.
-9. **DestinationDevice**: Destination device involved in the anomaly.
-10. **DestinationIpAddress**: Destination IP address involved in the anomaly.
-11. **DestinationLocation**: Information about the destination location in JSON format.
-12. **DeviceInsights**: Insights about devices involved in the anomaly, in JSON format.
-13. **EndTime**: Time (UTC) when the anomaly ended.
-14. **Entities**: JSON object containing all entities involved in the anomaly.
-15. **ExtendedLinks**: Links pointing to the data that generated the anomaly.
-16. **ExtendedProperties**: Additional data on the anomaly as key-value pairs in JSON format.
-17. **Id**: ID of the generated anomaly.
-18. **_IsBillable**: Indicates if the data ingestion is billable.
-19. **RuleConfigVersion**: Configuration version of the anomaly analytics rule that generated the anomaly.
-20. **RuleId**: ID of the anomaly analytics rule that generated the anomaly.
-21. **RuleName**: Name of the anomaly analytics rule that generated the anomaly.
-22. **RuleStatus**: Status (Flighting/Production) of the anomaly analytics rule that generated the anomaly.
-23. **Score**: Score of the anomaly.
-24. **SourceDevice**: Source device involved in the anomaly.
-25. **SourceIpAddress**: Source IP address involved in the anomaly.
-26. **SourceLocation**: Information about the source location in JSON format.
-27. **SourceSystem**: Type of agent that collected the event.
-28. **StartTime**: Time (UTC) when the anomaly started.
-29. **Tactics**: Tactics associated with the anomaly.
+1. **ActivityInsights**:
+   - Insights about activities related to the anomaly, presented in JSON format.
+2. **AnomalyDetails**:
+   - General information about the rule and algorithm that generated the anomaly, including explanations, in JSON format.
+3. **AnomalyReasons**:
+   - Detailed explanation of the anomaly, provided as JSON.
+4. **AnomalyTemplateId**:
+   - ID of the anomaly template that generated the anomaly.
+5. **AnomalyTemplateName**:
+    - Name of the anomaly template that generated the anomaly.
+6. **AnomalyTemplateVersion**:
+    - Version of the anomaly template that generated the anomaly.
+7. **_BilledSize**:
+    - Record size in bytes.
+8. **Description**:
+    - Description of the anomaly.
+9. **DestinationDevice**:
+    - Destination device involved in the anomaly.
+10. **DestinationIpAddress**:
+    - Destination IP address involved in the anomaly.
+11. **DestinationLocation**:
+    -Information about the destination location in JSON format.
+12. **DeviceInsights**:
+    - Insights about devices involved in the anomaly, in JSON format.
+13. **EndTime**:
+    - Time (UTC) when the anomaly ended.
+14. **Entities**:
+    - JSON object containing all entities involved in the anomaly.
+15. **ExtendedLinks**:
+    - Links pointing to the data that generated the anomaly.
+16. **ExtendedProperties**:
+    - Additional data on the anomaly as key-value pairs in JSON format.
+17. **Id**:
+    - ID of the generated anomaly.
+18. **_IsBillable**:
+    - Indicates if the data ingestion is billable.
+19. **RuleConfigVersion**:
+    - Configuration version of the anomaly analytics rule that generated the anomaly.
+20. **RuleId**:
+    - ID of the anomaly analytics rule that generated the anomaly.
+21. **RuleName**:
+    - Name of the anomaly analytics rule that generated the anomaly.
+22. **RuleStatus**:
+    - Status (Flighting/Production) of the anomaly analytics rule that generated the anomaly.
+23. **Score**:
+    - Score of the anomaly.
+24. **SourceDevice**:
+    - Source device involved in the anomaly.
+25. **SourceIpAddress**:
+    - Source IP address involved in the anomaly.
+26. **SourceLocation**:
+    - Information about the source location in JSON format.
+27. **SourceSystem**:
+    - Type of agent that collected the event.
+28. **StartTime**:
+    - Time (UTC) when the anomaly started.
+29. **Tactics**:
+    - Tactics associated with the anomaly.
 
 These attributes provide comprehensive information about anomalies detected in your environment, enabling detailed analysis and response to potential security incidents.
 ### Queries for the Anomalies Table in Azure Sentinel
