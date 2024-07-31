@@ -35,7 +35,17 @@ This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cyberse
       - [Office 365 SharePoint Activities](#Office-365-SharePoint-Activities)
    - [Anomalies Table](#Anomalies-Table)
      - [Table Description](#Description-of-the-Anomalies-Table)
-     - [Query to Retrieve Detailed Anomalies Data](#Query-to-Retrieve-Detailed-Anomalies-Data)
+     - [Retrieve High Scoring Anomalies](#Query-1:-Retrieve-High-Scoring-Anomalies)
+     - [Identify Anomalies by Specific Entity Type](#Query-2:-Identify-Anomalies-by-Specific-Entity-Type)
+     - [List Anomalies by Anomaly Template Name](#Query-3-List-Anomalies-by-Anomaly-Template-Name)
+     - [Anomalies Involving Specific IP Address](#Query-4-Anomalies-Involving-Specific-IP-Address)
+     - [Anomalies by Time Range](#Query-5-Anomalies-by-Time-Range)
+     - [Anomalies with Extended Properties](#Query-6-Anomalies-with-Extended-Properties)
+     - [List Anomalies by Source System](Query-7-List-Anomalies-by-Source-System)
+     - [Anomalies by Location](Query-8-Anomalies-by-Location)
+     - [Anomalies by Rule Status](Query-9-Anomalies-by-Rule-Status)
+     - [Anomalies with Insights](Query-10-Anomalies-with-Insights)
+     - [Query to Retrieve Detailed Anomalies Data](#Query-11:-to-Retrieve-Detailed-Anomalies-Data)
 
 ### 2. Microsoft Security Queries
    - [Advanced Threat Hunt](#advanced-threat-hunt)
@@ -515,7 +525,7 @@ Anomalies
 | project TimeGenerated, Id, Score, UserName, Description, AnomalyTemplateName, StartTime, EndTime
 ```
 
-#### Query 2: Identify Anomalies by Specific Entity Type
+#### Query 2 Identify Anomalies by Specific Entity Type
 
 This query filters anomalies to show only those related to a specific entity type, such as "user" or "device". Change `"user"` to any desired entity type.
 
@@ -528,7 +538,7 @@ Anomalies
 | project TimeGenerated, Id, Score, UserName, EntityType, Description, AnomalyTemplateName, StartTime, EndTime
 ```
 
-#### Query 3: List Anomalies by Anomaly Template Name
+#### Query 3 List Anomalies by Anomaly Template Name
 
 This query lists anomalies grouped by the name of the anomaly template that generated them, providing a count of each type.
 
@@ -538,7 +548,7 @@ Anomalies
 | order by Count desc
 ```
 
-#### Query 4: Anomalies Involving Specific IP Address
+#### Query 4 Anomalies Involving Specific IP Address
 
 This query retrieves anomalies involving a specific source IP address. Replace `"192.168.1.1"` with the desired IP address.
 
@@ -548,7 +558,7 @@ Anomalies
 | project TimeGenerated, Id, Score, UserName, SourceIpAddress, Description, AnomalyTemplateName, StartTime, EndTime
 ```
 
-#### Query 5: Anomalies by Time Range
+#### Query 5 Anomalies by Time Range
 
 This query filters anomalies based on a specified time range. Change `startTime` and `endTime` to the desired time range in UTC format.
 
@@ -560,7 +570,7 @@ Anomalies
 | project TimeGenerated, Id, Score, UserName, Description, AnomalyTemplateName, StartTime, EndTime
 ```
 
-#### Query 6: Anomalies with Extended Properties
+#### Query 6 Anomalies with Extended Properties
 
 This query retrieves anomalies with specific extended properties, allowing for more detailed analysis. Replace `"PropertyKey"` and `"PropertyValue"` with the desired key-value pair.
 
@@ -571,7 +581,7 @@ Anomalies
 | project TimeGenerated, Id, Score, UserName, Description, AnomalyTemplateName, StartTime, EndTime, ExtendedProperties
 ```
 
-#### Query 7: List Anomalies by Source System
+#### Query 7 List Anomalies by Source System
 
 This query lists anomalies grouped by the source system that collected the events, providing a count of each type.
 
@@ -581,7 +591,7 @@ Anomalies
 | order by Count desc
 ```
 
-#### Query 8: Anomalies by Location
+#### Query 8 Anomalies by Location
 
 This query retrieves anomalies based on a specific source or destination location. Change the `"LocationName"` to the desired location.
 
@@ -592,7 +602,7 @@ Anomalies
 | project TimeGenerated, Id, Score, UserName, Description, AnomalyTemplateName, StartTime, EndTime, SourceLocation, DestinationLocation
 ```
 
-#### Query 9: Anomalies by Rule Status
+#### Query 9 Anomalies by Rule Status
 
 This query filters anomalies by the status of the anomaly analytics rule (e.g., Production, Flighting).
 
@@ -602,7 +612,7 @@ Anomalies
 | project TimeGenerated, Id, Score, UserName, Description, AnomalyTemplateName, StartTime, EndTime
 ```
 
-#### Query 10: Anomalies with Insights
+#### Query 10 Anomalies with Insights
 
 This query retrieves anomalies with activity or device insights, providing additional context for investigation.
 
