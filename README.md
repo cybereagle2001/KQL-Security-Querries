@@ -35,8 +35,8 @@ This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cyberse
       - [Office 365 SharePoint Activities](#Office-365-SharePoint-Activities)
    - [Anomalies Table](#Anomalies-Table)
      - [Table Description](#Description-of-the-Anomalies-Table)
-     - [Retrieve High Scoring Anomalies](#Query-1:-Retrieve-High-Scoring-Anomalies)
-     - [Identify Anomalies by Specific Entity Type](#Query-2:-Identify-Anomalies-by-Specific-Entity-Type)
+     - [Retrieve High Scoring Anomalies](#Query-1-Retrieve-High-Scoring-Anomalies)
+     - [Identify Anomalies by Specific Entity Type](#Query-2-Identify-Anomalies-by-Specific-Entity-Type)
      - [List Anomalies by Anomaly Template Name](#Query-3-List-Anomalies-by-Anomaly-Template-Name)
      - [Anomalies Involving Specific IP Address](#Query-4-Anomalies-Involving-Specific-IP-Address)
      - [Anomalies by Time Range](#Query-5-Anomalies-by-Time-Range)
@@ -45,7 +45,7 @@ This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cyberse
      - [Anomalies by Location](Query-8-Anomalies-by-Location)
      - [Anomalies by Rule Status](Query-9-Anomalies-by-Rule-Status)
      - [Anomalies with Insights](Query-10-Anomalies-with-Insights)
-     - [Query to Retrieve Detailed Anomalies Data](#Query-11:-to-Retrieve-Detailed-Anomalies-Data)
+     - [Query to Retrieve Detailed Anomalies Data](#Query-11-to-Retrieve-Detailed-Anomalies-Data)
 
 ### 2. Microsoft Security Queries
    - [Advanced Threat Hunt](#advanced-threat-hunt)
@@ -515,7 +515,7 @@ The **Anomalies** table in **Azure Sentinel** holds information about anomalies 
 These attributes provide comprehensive information about anomalies detected in your environment, enabling detailed analysis and response to potential security incidents.
 ### Queries for the Anomalies Table in Azure Sentinel
 
-#### Query 1: Retrieve High-Scoring Anomalies
+#### Query 1 Retrieve High-Scoring Anomalies
 
 This query retrieves anomalies with a score greater than 80. Higher scores indicate potentially more significant or dangerous anomalies.
 
