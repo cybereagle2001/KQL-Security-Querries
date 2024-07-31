@@ -41,10 +41,10 @@ This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cyberse
      - [Anomalies Involving Specific IP Address](#Query-4-Anomalies-Involving-Specific-IP-Address)
      - [Anomalies by Time Range](#Query-5-Anomalies-by-Time-Range)
      - [Anomalies with Extended Properties](#Query-6-Anomalies-with-Extended-Properties)
-     - [List Anomalies by Source System](Query-7-List-Anomalies-by-Source-System)
-     - [Anomalies by Location](Query-8-Anomalies-by-Location)
-     - [Anomalies by Rule Status](Query-9-Anomalies-by-Rule-Status)
-     - [Anomalies with Insights](Query-10-Anomalies-with-Insights)
+     - [List Anomalies by Source System](#Query-7-List-Anomalies-by-Source-System)
+     - [Anomalies by Location](#Query-8-Anomalies-by-Location)
+     - [Anomalies by Rule Status](#Query-9-Anomalies-by-Rule-Status)
+     - [Anomalies with Insights](#Query-10-Anomalies-with-Insights)
      - [Query to Retrieve Detailed Anomalies Data](#Query-11-to-Retrieve-Detailed-Anomalies-Data)
 
 ### 2. Microsoft Security Queries
