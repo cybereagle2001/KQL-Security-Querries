@@ -48,14 +48,22 @@ This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cyberse
      - [Query to Retrieve Detailed Anomalies Data](#Query-11-to-Retrieve-Detailed-Anomalies-Data)
 
 ### 2. Microsoft Security Queries
-   -[Alerts & Behaviors](#Alerts-&-Behaviors)
-   -[AlertEvidence](#AlertEvidence-Table)
-### AlertInfo Table
-### BehaviorEntities Table
-### BehaviorInfo Table
-### SecurityAlert Table
-   - [Advanced Threat Hunt](#advanced-threat-hunt)
-   - [Detailed Threat Hunt](#detailed-threat-hunt)
+   - [Alerts & Behaviors](#Alerts-&-Behaviors)
+      - [AlertEvidence](#AlertEvidence-Table)
+      - [AlertInfo](#AlertInfo-Table)
+      - [BehaviorEntities](#BehaviorEntities-Table)
+      - [BehaviorInfo](#BehaviorInfo-Table)
+      - [SecurityAlert](#SecurityAlert-Table)
+      - [Advanced Threat Hunt](#advanced-threat-hunt)
+      - [Detailed Threat Hunt](#detailed-threat-hunt)
+   - [Apps and identities](#Apps-and-identities)
+      - [AADSignInEventBeta](#AADSignInEventBeta)
+      - [AADSpnSinInEventsBeta](#AADSpnSinInEventsBeta)
+      - [CloudAppEvents](#CloudAppEvents)
+      - [IdentityDirectoryEvents](#IdentityDirectoryEvents)
+      - [IdentityInfo](#IdentityInfo)
+      - [IdentityLogonEvents](#IdentityLogonEvents)
+      - [IdentityQueryEvents](#IdentityQueryEvents)
 
 </center>
 
@@ -645,7 +653,16 @@ Anomalies
 ### AlertInfo Table
 ### BehaviorEntities Table
 ### BehaviorInfo Table
-### SecurityAlert Table
+
+## Apps and identities
+
+### AADSignInEventBeta
+### AADSpnSinInEventsBeta
+### CloudAppEvents
+### IdentityDirectoryEvents
+### IdentityInfo
+### IdentityLogonEvents
+### IdentityQueryEvents
 
 
 ## Advanced Threat Hunt
