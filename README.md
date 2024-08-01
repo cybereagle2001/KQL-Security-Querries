@@ -47,7 +47,7 @@ This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cyberse
      - [Anomalies with Insights](#Query-10-Anomalies-with-Insights)
      - [Query to Retrieve Detailed Anomalies Data](#Query-11-to-Retrieve-Detailed-Anomalies-Data)
 
-### 2. Microsoft Security Queries
+### 2. Microsoft Security Advanced Hunting Querries
    - [Alerts & Behaviors](#Alerts-&-Behaviors)
       - [AlertEvidence](#AlertEvidence-Table)
       - [AlertInfo](#AlertInfo-Table)
@@ -646,7 +646,7 @@ Anomalies
 | project TimeGenerated, Id, Score, UserName,EntityType, IsDomainJoined, VendorName, AnomalyTemplateName, Description, StartTime, EndTime
 ```
 
-# Microsoft Security Querries
+# Microsoft Security Advanced Hunting Querries
 ## Alerts & Behaviors
 
 ### AlertEvidence Table
