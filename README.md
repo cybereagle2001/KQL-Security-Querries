@@ -647,8 +647,10 @@ Anomalies
 ```
 
 # Microsoft Security Advanced Hunting Querries
-## Alerts & Behaviors
+Advanced hunting is a query-based threat hunting tool that lets you explore up to 30 days of raw data. You can proactively inspect events in your network to locate threat indicators and entities. The flexible access to data enables unconstrained hunting for both known and potential threats. Advanced hunting supports two modes, guided and advanced. Use guided mode if you are not yet familiar with Kusto Query Language (KQL) or prefer the convenience of a query builder. Use advanced mode if you are comfortable using KQL to create queries from scratch (that's what we are doing on this document)
 
+## Alerts & Behaviors
+In Microsoft Defender’s advanced hunting, alerts and behavior tables play crucial roles in identifying and investigating potential security threats
 ### AlertEvidence Table
 ### AlertInfo Table
 ### BehaviorEntities Table
