@@ -666,6 +666,19 @@ In Microsoft Defender’s advanced hunting, alerts and behavior tables play cruc
 ### IdentityLogonEvents
 ### IdentityQueryEvents
 
+## Devices
+
+### DeviceEvents
+### DeviceFileCertificateInfo
+### DeviceFileEvents
+### DeviceImageLoadEvents
+### DeviceInfo
+### DeviceLogonEvents
+### DeviceNEtworkEvents
+### DeviceNetworkInfo
+### DeviceProcessEvents
+### DeviceRegisteryEvents
+
 
 ## Advanced Threat Hunt
 In order to identify the infected devices by a specific CVE we can use the following querry :
