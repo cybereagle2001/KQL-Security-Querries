@@ -669,6 +669,13 @@ In Microsoft Defender’s advanced hunting, alerts and behavior tables play cruc
 ## Devices
 
 ### DeviceEvents
+
+````KQL
+DeviceEvents
+| where ActionType == "AntivirusDetection"
+| summarize (Timestamp, ReportId)=arg_max(Timestamp,ReportId), count() by DeviceId
+| where count_ > 3
+````
 ### DeviceFileCertificateInfo
 ### DeviceFileEvents
 ### DeviceImageLoadEvents
