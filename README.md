@@ -50,6 +50,8 @@ This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cyberse
 ### 2. Microsoft Security Advanced Hunting Querries
    - [Alerts and Behaviors](#Alerts-and-Behaviors)
       - [AlertEvidence](#AlertEvidence-Table)
+           -[Table Description](#DeviceEvents-Table-Description)
+           -[Queries Example](#Queries-Example)
       - [AlertInfo](#AlertInfo-Table)
       - [BehaviorEntities](#BehaviorEntities-Table)
       - [BehaviorInfo](#BehaviorInfo-Table)
@@ -650,7 +652,9 @@ Anomalies
 Advanced hunting is a query-based threat hunting tool that lets you explore up to 30 days of raw data. You can proactively inspect events in your network to locate threat indicators and entities. The flexible access to data enables unconstrained hunting for both known and potential threats. Advanced hunting supports two modes, guided and advanced. Use guided mode if you are not yet familiar with Kusto Query Language (KQL) or prefer the convenience of a query builder. Use advanced mode if you are comfortable using KQL to create queries from scratch (that's what we are doing on this document)
 
 ## Alerts and Behaviors
-In Microsoft Defender’s advanced hunting, alerts and behavior tables play crucial roles in identifying and investigating potential security threats
+
+In Microsoft Defender’s advanced hunting, alerts and behavior tables play crucial roles in identifying and investigating potential security threats.
+
 ### AlertEvidence Table
 ### AlertInfo Table
 ### BehaviorEntities Table
@@ -667,15 +671,230 @@ In Microsoft Defender’s advanced hunting, alerts and behavior tables play cruc
 ### IdentityQueryEvents
 
 ## Devices
-
+The Devices section in Microsoft Defender’s advanced hunting allows you to query detailed information about devices in your organization.
 ### DeviceEvents
+#### DeviceEvents Table Description
+1. **ActionType**  
+   - **Type**: `string`  
+   - **Description**: The type of action or event that occurred (e.g., process creation, file deletion, network connection).
 
-````KQL
+2. **DeviceId**  
+   - **Type**: `string`  
+   - **Description**: A unique identifier for the device where the event occurred. Used to correlate with other events related to the same device.
+
+3. **DeviceName**  
+   - **Type**: `string`  
+   - **Description**: The name or hostname of the device associated with the event.
+
+4. **Timestamp**  
+   - **Type**: `datetime`  
+   - **Description**: The exact date and time (in UTC) when the event took place.
+
+5. **FileName**  
+   - **Type**: `string`  
+   - **Description**: The name of the file involved in the event (if applicable, such as for file access, creation, or modification).
+
+6. **FolderPath**  
+   - **Type**: `string`  
+   - **Description**: The full path of the folder that contains the file involved in the event.
+
+7. **ProcessId**  
+   - **Type**: `long`  
+   - **Description**: The unique ID of the process that generated the event.
+
+8. **ProcessCommandLine**  
+   - **Type**: `string`  
+   - **Description**: The command line string used to launch the process, including arguments. Helps identify how the process was executed.
+
+9. **InitiatingProcessId**  
+   - **Type**: `long`  
+   - **Description**: The unique ID of the parent or initiating process responsible for starting the current process.
+
+10. **InitiatingProcessFileName**  
+    - **Type**: `string`  
+    - **Description**: The name of the parent or initiating process that started the current process.
+
+11. **InitiatingProcessCommandLine**  
+    - **Type**: `string`  
+    - **Description**: The command line used to start the initiating process. Provides context for understanding the origin of the event.
+
+12. **AccountName**  
+    - **Type**: `string`  
+    - **Description**: The user account associated with the event.
+
+13. **AccountDomain**  
+    - **Type**: `string`  
+    - **Description**: The domain to which the user account belongs, useful in identifying accounts in Active Directory environments.
+
+14. **RemoteUrl**  
+    - **Type**: `string`  
+    - **Description**: The URL associated with the event, such as a website or network resource accessed by the device.
+
+15. **RemoteIP**  
+    - **Type**: `string`  
+    - **Description**: The IP address of the remote device involved in the network connection or event.
+
+16. **RemotePort**  
+    - **Type**: `int`  
+    - **Description**: The port number on the remote device that was involved in the network connection or communication.
+
+17. **LocalIP**  
+    - **Type**: `string`  
+    - **Description**: The IP address of the local device where the event occurred.
+
+18. **LocalPort**  
+    - **Type**: `int`  
+    - **Description**: The local port number used on the device during the event.
+
+19. **ReportId**  
+    - **Type**: `long`  
+    - **Description**: A unique identifier for the report or batch of events, useful for linking multiple related events.
+
+20. **EventType**  
+    - **Type**: `string`  
+    - **Description**: The general category of the event, providing higher-level classification than `ActionType`.
+
+21. **SHA256**  
+    - **Type**: `string`  
+    - **Description**: The SHA-256 hash of the file involved in the event, used for identifying files in integrity checks and malware analysis.
+
+22. **MD5**  
+    - **Type**: `string`  
+    - **Description**: The MD5 hash of the file involved in the event, another hash commonly used in file identification and analysis.
+
+23. **AdditionalFields**  
+    - **Type**: `dynamic` (JSON)  
+    - **Description**: Contains any additional data related to the event, typically stored in JSON format.
+
+24. **DeviceRiskScore**  
+    - **Type**: `double`  
+    - **Description**: A numeric risk score assigned to the device, based on aggregated telemetry and security signals.
+
+25. **DeviceCategory**  
+    - **Type**: `string`  
+    - **Description**: Indicates the category of the device (e.g., workstation, server, mobile).
+
+26. **IsLocalAdmin**  
+    - **Type**: `bool`  
+    - **Description**: A boolean flag indicating whether the account associated with the event has local admin privileges on the device.
+
+27. **RegistryKey**  
+    - **Type**: `string`  
+    - **Description**: The registry key that was accessed or modified during the event (if applicable).
+
+28. **RegistryValueName**  
+    - **Type**: `string`  
+    - **Description**: The name of the registry value associated with the event.
+
+29. **RegistryValueData**  
+    - **Type**: `string`  
+    - **Description**: The data contained within the registry value that was accessed or modified.
+
+30. **LogonId**  
+    - **Type**: `string`  
+    - **Description**: A unique identifier for the user logon session associated with the event.
+
+#### Queries Example
+#### First Query: Detecting Devices with Multiple Antivirus Detections
+
+This KQL query is used to detect devices that have experienced multiple antivirus detections over time in **Microsoft Defender for Endpoint** by analyzing the **DeviceEvents** table.
+
+```KQL
 DeviceEvents
 | where ActionType == "AntivirusDetection"
-| summarize (Timestamp, ReportId)=arg_max(Timestamp,ReportId), count() by DeviceId
+| summarize (Timestamp, ReportId) = arg_max(Timestamp, ReportId), count() by DeviceId
 | where count_ > 3
-````
+```
+
+**Explanation:**
+
+1. **DeviceEvents**: The table containing events related to device activities, including security incidents, file operations, and antivirus detections.
+   
+2. **| where ActionType == "AntivirusDetection"**: Filters the events to only include those where the action is related to antivirus detection, indicating a potential threat has been detected by antivirus software on the device.
+
+3. **| summarize (Timestamp, ReportId) = arg_max(Timestamp, ReportId), count() by DeviceId**: 
+   - **arg_max(Timestamp, ReportId)** retrieves the most recent detection event for each device.
+   - **count() by DeviceId** groups the data by each device, counting the number of detection events.
+
+4. **| where count_ > 3**: Filters to show only devices with more than 3 antivirus detections.
+
+---
+
+#### Second Query: Monitoring Unauthorized File Access
+
+This query detects devices where users attempt to access restricted or unauthorized files, using the **DeviceEvents** table.
+
+```KQL
+DeviceEvents
+| where ActionType == "FileAccessAttempt"
+| where FilePath contains "restricted"
+| summarize count() by DeviceId, UserName
+| where count_ > 5
+```
+
+**Explanation:**
+
+1. **DeviceEvents**: The table storing device-related events, including file access attempts.
+   
+2. **| where ActionType == "FileAccessAttempt"**: Filters the events to focus only on those related to attempts to access files.
+
+3. **| where FilePath contains "restricted"**: Further filters the data to show only file access attempts that involve restricted files (as indicated by "restricted" in the file path).
+
+4. **| summarize count() by DeviceId, UserName**: Groups the results by device and user, counting how many restricted file access attempts occurred.
+
+5. **| where count_ > 5**: Filters to show only devices and users with more than 5 access attempts to restricted files.
+
+---
+
+#### Third Query: Identifying Devices with High Suspicious Activity
+
+This query identifies devices that have experienced a high number of suspicious activities, such as unusual logon attempts or security violations.
+
+```KQL
+DeviceEvents
+| where ActionType in ("SuspiciousLogon", "SecurityViolation")
+| summarize count() by DeviceId, bin(TimeGenerated, 1h)
+| where count_ > 10
+```
+
+**Explanation:**
+
+1. **DeviceEvents**: The table containing events about device-related activities and incidents.
+
+2. **| where ActionType in ("SuspiciousLogon", "SecurityViolation")**: Filters the data to show only events categorized as either a suspicious logon or a security violation.
+
+3. **| summarize count() by DeviceId, bin(TimeGenerated, 1h)**: Groups the data by device and time, counting how many suspicious events occurred in one-hour intervals.
+
+4. **| where count_ > 10**: Filters to show only devices with more than 10 suspicious activities in a one-hour period, which could indicate an ongoing attack or malicious behavior.
+
+---
+
+#### Fourth Query: Detecting File Deletions
+
+This query focuses on detecting when files are deleted from devices, a common indicator of potential malicious activity, such as malware or data tampering.
+
+```KQL
+DeviceEvents
+| where ActionType == "FileDeleted"
+| summarize count() by DeviceId, FolderPath
+| where count_ > 20
+```
+
+**Explanation:**
+
+1. **DeviceEvents**: The table storing device-related events, including file operations like deletion.
+
+2. **| where ActionType == "FileDeleted"**: Filters the data to include only file deletion events.
+
+3. **| summarize count() by DeviceId, FolderPath**: Groups the results by device and folder path, counting how many files have been deleted from each folder.
+
+4. **| where count_ > 20**: Shows only devices where more than 20 files have been deleted from a folder, which could indicate a potential data tampering or malicious activity.
+
+---
+
+These queries leverage the **DeviceEvents** table in **Microsoft Defender for Endpoint** to monitor for potential security incidents, malicious activity, and suspicious behavior.
+
+
 ### DeviceFileCertificateInfo
 ### DeviceFileEvents
 ### DeviceImageLoadEvents
