@@ -666,6 +666,12 @@ In Microsoft Defender’s advanced hunting, alerts and behavior tables play cruc
 ### AADSpnSinInEventsBeta
 ### CloudAppEvents
 ### IdentityDirectoryEvents
+````kql
+IdentityDirectoryEvents
+| where actionType == "Potential lateral movement path identified"
+| project Timestamp, ActionType, Application, AccountName, AccountDomain, AccountSid, AccountDisplayName, DeviceNAme, AdditionalFields
+````
+
 ### IdentityInfo
 ### IdentityLogonEvents
 ### IdentityQueryEvents
