@@ -52,8 +52,10 @@ This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cyberse
    - [Alerts and Behaviors](#Alerts-and-Behaviors)
       - [AlertEvidence](#AlertEvidence-Table)
            -[Table Description](#DeviceEvents-Table-Description)
-           -[KQL Querries](#Queries-Example)
+            -[KQL Querries](#Queries-Example)
       - [AlertInfo](#AlertInfo-Table)
+            -[Table Description](#AlertInfo-Table-Description)
+            -[AlertInfo QKL Queries](#AlertInfo-QKL-Queries) 
       - [BehaviorEntities](#BehaviorEntities-Table)
       - [BehaviorInfo](#BehaviorInfo-Table)
       - [SecurityAlert](#SecurityAlert-Table)
@@ -852,6 +854,10 @@ AlertEvidence
 
 
 ### AlertInfo Table
+#### AlertInfo Table Description
+
+#### AlertInfo QKL Queries
+
 ### BehaviorEntities Table
 ### BehaviorInfo Table
 
