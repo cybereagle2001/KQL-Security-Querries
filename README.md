@@ -1193,13 +1193,7 @@ DeviceTvmSoftwareVulnerabilities
 | where DeviceName has_any (CriticalDevices)
 ```
 
-
-  <footer>
  <a href="https://cybereagle2001.github.io/Blog/">
  <span></span></a><center><a href="https://cybereagle2001.github.io/Blog/">
- <b>cybereagle2001</b>
-
- 
- <span>© 2022</span>
+ <b>cybereagle2001</b> © 2022
  </a> </center>
-</footer>
