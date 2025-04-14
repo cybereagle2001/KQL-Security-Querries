@@ -1581,6 +1581,7 @@ let CriticalDevices =
 - **extend isLocalAdmin = EdgeProperties.rawData.userRightsOnDevice.isLocalAdmin**: Extracts whether the identity has local admin rights on the device.
 - **where SourceNodeName has_any (CriticalIdentities)**: Filters to include only edges where the source node name is one of the critical identities identified earlier.
 - **distinct DName**: Selects unique device names associated with these critical identities.
+
 ---
 #### 3. Filtering for Vulnerable Devices
 
