@@ -2,7 +2,7 @@
 <center>
 <a target="_blank" href="Microsoft" title="Microsoft"><img src="https://img.shields.io/static/v1?label=Product&message=Microsoft&color=red"></a>
 <a target="_blank" href="Sentinel" title="Sentinel"><img src="https://img.shields.io/static/v1?label=SIEM&message=Sentinel&color=blue"></a>
-<a target="_blank" href="Defender" title="Defender"><img src="https://img.shields.io/static/v1?label=AntiVirus&message=Defender&color=green"></a>
+<a target="_blank" href="Defender" title="Defender"><img src="https://img.shields.io/static/v1?label=XDR&message=Defender&color=green"></a>
 <a target="_blank" href="Author" title="cybereagle2001"><img src="https://img.shields.io/static/v1?label=Author&message=cybereagle2001&color=yellow"></a>
 <a target="_blank" href="Author" title="cybereagle2001"><img src="https://img.shields.io/static/v1?label=Section&message=Investigation&color=pink"></a>
 <a target="_blank" href="Author" title="cybereagle2001"><img src="https://img.shields.io/static/v1?label=Unit&message=SOC&color=purple"></a>
