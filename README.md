@@ -860,6 +860,7 @@ The **AlertInfo** table in Microsoft Defender XDR's Advanced Hunting provides me
 - Prioritize alerts by severity and category
 - Understand MITRE ATT&CK mappings
 - Track investigation status
+
 1. **`AlertId`** (string)
 Unique identifier for the alert
 Example: caD70CFEE2-60A8-4BD5-BDF8-2E4AC1234567
