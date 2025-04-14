@@ -62,7 +62,9 @@ This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cyberse
       - [Advanced Threat Hunt](#advanced-threat-hunt)
       - [Detailed Threat Hunt](#detailed-threat-hunt)
    - [Apps and identities](#Apps-and-identities)
-      - [AADSignInEventBeta](#AADSignInEventBeta)
+      - [AADSignInEventsBeta](#AADSignInEventBeta)
+            -[Table Description](#AADSignInEventsBeta-Table-Description)
+            -[KQL Querries](#AADSignInEventsBeta-Queries-Example)
       - [AADSpnSinInEventsBeta](#AADSpnSinInEventsBeta)
       - [CloudAppEvents](#CloudAppEvents)
       - [IdentityDirectoryEvents](#IdentityDirectoryEvents)
@@ -959,7 +961,7 @@ highSeverityAlerts
 The Apps and Identities section in Microsoft Defender's Advanced Threat Hunting empowers security analysts to investigate and respond to identity-based threats and application-level compromises across the Microsoft 365 ecosystem. This section focuses on the interaction between users, apps, services, and sign-ins—offering deep visibility into suspicious behaviors, lateral movements, and possible identity theft attempts.
 It leverages telemetry from Azure Active Directory, Microsoft Entra, and Cloud Apps to correlate identity-related activities with alerts and evidence across the environment.
 ### AADSignInEventBeta
-#### Table Description
+#### AADSignInEventsBeta Table Description
 The `AADSignInEventBeta` table contains detailed logs of sign-in events to Azure Active Directory (AAD), allowing security analysts to track and investigate authentication behavior, login anomalies, and conditional access outcomes. Each row represents a single sign-in attempt and includes identity, device, application, and location data.
 
 ---
@@ -1139,7 +1141,7 @@ A unique ID for the request that can be used to correlate with logs in other ser
 44. **`ReportId`** (long):
 An internal identifier for the reporting event. Helps with support cases and advanced cross-service analysis.
 
-#### KQL Queries Sample
+#### AADSignInEventsBeta-Queries-Example
 #### Query 1: Detect Failed Sign-ins from High-Risk Users
 ```KQL
 AADSignInEventsBeta
