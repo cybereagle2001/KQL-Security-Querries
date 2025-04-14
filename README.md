@@ -1249,8 +1249,8 @@ AADSignInEventsBeta
 ```
 
 - **Purpose**: Detects brute-force or spray attacks with varied clients/browsers.
----
 
+---
 #### Query 9: Accounts with Risky Sign-ins After Password Change
 ```KQL
 AADSignInEventsBeta
