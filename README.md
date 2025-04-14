@@ -31,7 +31,7 @@ This repository, created by @cybereagle2001 (Oussama Ben Hadj Dahman), a cyberse
       - [Count of Office 365 Activities by Operation Type](#Count-of-Office-365-Activities-by-Operation-Type)
       - [Top Users by Office 365 Activities](#Top-Users-by-Office-365-Activities)
       - [Office 365 File Access Activities](#Office-365-File-Access-Activities)
-      - [Only Sharepoint Activities](#Query-4:-Retrieve-only-Sharepoint-Activities)
+      - [Only Sharepoint Activities](#Query-4-Retrieve-only-Sharepoint-Activities)
       - [Office 365 Mailbox Activities](#Office-365-Mailbox-Activities)
       - [Office 365 SharePoint Activities](#Office-365-SharePoint-Activities)
    - [Anomalies Table](#Anomalies-Table)
@@ -436,7 +436,7 @@ OfficeActivity
 - **Usage**: Helps in identifying suspicious file access patterns or detecting insider threats by analyzing file activities across users and operations.
 
 ---
-#### Query 4: Retrieve only Sharepoint Activities
+#### Query 4 Retrieve only Sharepoint Activities
 
 ```kql
 OfficeActivity
