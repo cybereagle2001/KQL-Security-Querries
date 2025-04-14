@@ -956,8 +956,280 @@ highSeverityAlerts
 ### BehaviorInfo Table
 
 ## Apps and identities
-
+The Apps and Identities section in Microsoft Defender's Advanced Threat Hunting empowers security analysts to investigate and respond to identity-based threats and application-level compromises across the Microsoft 365 ecosystem. This section focuses on the interaction between users, apps, services, and sign-ins—offering deep visibility into suspicious behaviors, lateral movements, and possible identity theft attempts.
+It leverages telemetry from Azure Active Directory, Microsoft Entra, and Cloud Apps to correlate identity-related activities with alerts and evidence across the environment.
 ### AADSignInEventBeta
+#### Table Description
+The `AADSignInEventBeta` table contains detailed logs of sign-in events to Azure Active Directory (AAD), allowing security analysts to track and investigate authentication behavior, login anomalies, and conditional access outcomes. Each row represents a single sign-in attempt and includes identity, device, application, and location data.
+
+---
+
+1. **`Application`** (string):
+
+The name of the application that the user attempted to access during the sign-in event. Helps identify which service or resource was targeted.
+
+2. **`ApplicationID`** (string):
+
+The unique identifier (client ID) of the application being accessed. Useful for correlating sign-ins across different logs and services.
+
+3. **`LogonType`** (string):
+
+Specifies the type of logon performed (e.g., interactive, remote interactive, network). Helps classify how access was attempted.
+
+4. **`EndpointCall`** (boolean):
+
+Indicates whether the sign-in involved a direct endpoint call. Helps determine the access flow and nature of the request.
+
+5. **`ErrorCode`** (int):
+
+The numeric code indicating the result of the sign-in (e.g., success, failure, or specific failure reason). Important for troubleshooting failed logins.
+
+6. **`CorrelationID`** (string):
+
+A GUID used to correlate related sign-in events across services and logs. Useful during investigations involving multiple systems.
+
+7. **`SessionId`** (string):
+
+A unique identifier for the session established during the sign-in. Helps track session activities post-authentication.
+
+8. **`AccountDisplayName`** (string):
+
+The full display name of the user account attempting the sign-in. Provides readable identity information for analysts.
+
+9. **`AccountObjectID`** (string):
+
+The unique Azure AD object ID of the user account. Enables linkage to other AAD-based datasets.
+
+10. **`AccountUpn`** (string):
+
+The User Principal Name (UPN) of the account, typically in email format. Used to identify the user attempting access.
+
+11. **`IsExternalUser`** (boolean):
+
+Indicates whether the user is external to the tenant. Helps detect guest or B2B collaboration users.
+
+12. **`IsGuestUser`** (boolean):
+
+Specifies if the user is classified as a guest account in the tenant. Useful in evaluating external access risks.
+
+13. **`AlternateSignInName`** (string):
+
+Any alternate name used by the user during sign-in, such as a phone number or alias. Helps detect unusual or legacy login methods.
+
+14. **`LastPasswordChangeTimestamp`** (datetime):
+
+The timestamp of the last password change for the user. Useful for verifying password freshness or identifying stale credentials.
+
+15. **`ResourceDisplayName`** (string):
+
+The name of the resource or API being accessed during the sign-in. Helps identify access targets.
+
+16. **`ResourceId`** (string):
+
+The unique identifier of the resource being accessed. Important for correlating with other service logs.
+
+17. **`ResourceTenantID`** (string):
+
+The Azure AD tenant ID of the resource being accessed. Helps identify cross-tenant access attempts.
+
+18. **`DeviceName`** (string):
+
+The hostname or friendly name of the device used for the sign-in. Useful for tying access to managed or known endpoints.
+
+19. **`AadDeviceID`** (string):
+
+The Azure AD device ID, used to uniquely identify the device object in the directory. Enables device trust correlation.
+
+20. **`OSPlatform`** (string):
+
+Indicates the operating system platform (e.g., Windows, iOS, Android). Useful for detecting platform-specific risks or anomalies.
+
+21. **`DeviceTrustType`** (string):
+
+Describes the level or type of trust for the device (e.g., Azure AD joined, hybrid joined). Critical for conditional access decisions.
+
+22. **`IsManaged`** (boolean):
+
+Indicates if the device is managed by Intune or other MDM solutions. Helps evaluate compliance with organizational policy.
+
+23. **`IsCompliant`** (boolean):
+
+Shows whether the device complies with configured security and access policies. Useful for zero-trust enforcement.
+
+24. **`AuthenticationProcessingDetails`** (string):
+
+Provides detailed breakdown of the authentication process steps (e.g., MFA, federated login). Assists in tracing complex auth flows.
+
+25. **`AuthenticationRequirement`** (string):
+
+Specifies what authentication was required (e.g., password only, MFA). Key for identifying downgraded or elevated auth paths.
+
+26. **`ToeknIssuerType`** (string):
+
+Indicates the type of issuer that provided the token (e.g., AzureAD, ADFS). Reveals federation and identity provider details.
+
+27. **`RiskLevelAggregated`** (string):
+
+The overall risk level assigned to the user/account based on aggregated signals (e.g., low, medium, high). Supports risk-based conditional access.
+
+28. **`RiskLevelDuringSignIn`** (int):
+
+The real-time risk level at the moment of the sign-in attempt. Useful for triggering or reviewing inline access decisions.
+
+29. **`RiskEventTypes`** (string):
+
+A list of risk events (e.g., unfamiliar location, leaked credentials) detected during the sign-in. Critical for understanding context of the risk.
+
+30. **`RiskState`** (string):
+
+The current status of the risk (e.g., confirmed, dismissed). Indicates if the risk has been mitigated or is still active.
+
+31. **`UserAgent`** (string):
+
+The full user agent string from the browser or client application used. Useful for identifying browser types or versions.
+
+32. **`ClientAppUsed`** (string):
+
+Specifies the type of client application (e.g., Browser, Mobile Apps and Desktop Clients). Helps distinguish between interactive and non-interactive sign-ins.
+
+33. **`Browser`** (string):
+
+Identifies the browser used during the sign-in attempt (e.g., Chrome, Edge). Can assist in detecting impersonation or outdated software.
+
+34. **`ConditionalAccessPolicies`** (string):
+
+Lists the conditional access policies that were evaluated or applied during the sign-in. Helps determine why access was granted or denied.
+
+35. ***`ConditionalAccessStatus`** (string):
+
+The result of conditional access enforcement (e.g., success, failure, not applied). Key to validating policy effectiveness.
+
+36. **`IPAddress`** (string):
+
+The public IP address from which the sign-in was initiated. Used to identify geolocation or suspicious IP sources.
+
+37. **`Country`** (string):
+
+The country associated with the IP address. Important for detecting geographic anomalies.
+
+38. **`State`** (string):
+
+The region or state of the originating IP address. Further refines geographic context.
+
+39. **`City`** (string):
+
+The city where the sign-in originated, based on geolocation of the IP address.
+
+40. **`Latitude`** (real):
+
+The geographic latitude of the IP address location. Useful for mapping or proximity analysis.
+
+41. **`Longitude`** (real):
+
+The geographic longitude of the IP address location.
+
+42. **`NetworkLocationDetails`** (string):
+
+Provides additional network-level information (e.g., VPN, on-premises). Helps understand if the connection came through secure channels.
+
+43. **`RequestID`** (string):
+
+A unique ID for the request that can be used to correlate with logs in other services.
+
+44. **`ReportId`** (long):
+An internal identifier for the reporting event. Helps with support cases and advanced cross-service analysis.
+
+#### KQL Queries Sample
+#### Query 1: Detect Failed Sign-ins from High-Risk Users
+```KQL
+AADSignInEventsBeta
+| where ErrorCode != 0
+| where RiskLevelDuringSignIn in (50 , 100)
+| summarize FailedAttempts = count(), LatestAttempt = max(Timestamp) by AccountUpn, IPAddress, RiskEventTypes
+| order by FailedAttempts desc
+```
+- **Purpose**: Identifies users with failed sign-in attempts that also carry medium or high sign-in risks.
+---
+#### Query 2: Sign-ins from Unusual Locations (New Country per User)
+```KQL
+AADSignInEventsBeta
+| summarize Locations = make_set(Country) by AccountUpn
+| where array_length(Locations) > 1
+```
+- **Purpose**: Highlights accounts accessing from multiple countries, which may indicate account compromise.
+---
+#### Query 3: Sign-ins Using Legacy or Non-Compliant Devices
+```KQL
+AADSignInEventsBeta
+| where IsManaged == false or IsCompliant == false
+| summarize Attempts = count(), LastSeen = max(Timestamp) by AccountUpn, DeviceName, OSPlatform, IPAddress
+| order by Attempts desc
+```
+- **Purpose**: Detects users accessing resources from unmanaged or non-compliant devices.
+---
+#### Query 4: Sign-ins with Conditional Access Failure
+```KQL
+AADSignInEventsBeta
+| where ConditionalAccessStatus == "failure"
+| summarize Failures = count(), LastFailure = max(Timestamp) by AccountUpn, ConditionalAccessPolicies, IPAddress
+| order by Failures desc
+```
+- **Purpose**: Shows which users failed conditional access policies, and which policies were involved.
+---
+#### Query 5: External Guest Users with Successful Sign-ins
+```KQL
+AADSignInEventsBeta
+| where IsExternalUser == true and ErrorCode == 0
+| summarize SuccessfulLogins = count(), LastSeen = max(Timestamp) by AccountUpn, IPAddress, ResourceDisplayName
+```
+- **Purpose**: Helps audit external or guest accounts accessing resources successfully.
+---
+#### Query 6: High-Risk Sign-ins Using Password-Only Authentication
+```KQL
+AADSignInEventsBeta
+| where AuthenticationRequirement == "SingleFactorAuthentication"
+| where RiskLevelDuringSignIn in (50, 100)
+| summarize RiskyEvents = count(), LastSeen = max(Timestamp) by AccountUpn, IPAddress, UserAgent
+```
+- **Purpose**: Detects risky sign-ins that didn’t require multi-factor authentication (MFA).
+---
+#### Query 7: Multiple Accounts from Same IP (Lateral Movement Suspicion)
+```KQL
+AADSignInEventsBeta
+| where ErrorCode == 0
+| summarize UniqueUsers = dcount(AccountUpn), Accounts = make_set(AccountUpn) by IPAddress
+| where UniqueUsers > 3
+```
+- **Purpose**: Identifies potential lateral movement by looking for multiple user accounts signing in from the same IP.
+---
+#### Query 8: Multiple Failed Sign-ins with Different User Agents
+```KQL
+AADSignInEventsBeta
+| where ErrorCode != 0
+| summarize AgentCount = dcount(UserAgent), Attempts = count() by AccountUpn
+| where AgentCount > 2 and Attempts > 5
+
+```
+- **Purpose**: Detects brute-force or spray attacks with varied clients/browsers.
+---
+#### Query 9: Accounts with Risky Sign-ins After Password Change
+```KQL
+AADSignInEventsBeta
+| where RiskLevelDuringSignIn in (50, 100)
+| extend TimeSincePwdChange = datetime_diff("minute", Timestamp, LastPasswordChangeTimestamp)
+| where TimeSincePwdChange > 0 and TimeSincePwdChange < 60
+| project Timestamp, AccountUpn, RiskEventTypes, IPAddress, TimeSincePwdChange
+```
+- **Purpose**: Finds suspicious sign-ins that occur shortly after password changes—could indicate compromise.
+---
+#### Query 10: Uncommon Client Apps Used in Sign-ins
+```KQL
+AADSignInEventsBeta
+| summarize Count = count() by ClientAppUsed
+| order by Count asc
+```
+- **Purpose**: Reveals rarely used or potentially unauthorized client applications.
+
 ### AADSpnSinInEventsBeta
 ### CloudAppEvents
 ### IdentityDirectoryEvents
