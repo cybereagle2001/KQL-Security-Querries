@@ -1171,7 +1171,9 @@ AADSignInEventsBeta
 | summarize FailedAttempts = count(), LatestAttempt = max(Timestamp) by AccountUpn, IPAddress, RiskEventTypes
 | order by FailedAttempts desc
 ```
+
 - **Purpose**: Identifies users with failed sign-in attempts that also carry medium or high sign-in risks.
+
 ---
 #### Query 2: Sign-ins from Unusual Locations (New Country per User)
 ```KQL
@@ -1179,7 +1181,9 @@ AADSignInEventsBeta
 | summarize Locations = make_set(Country) by AccountUpn
 | where array_length(Locations) > 1
 ```
+
 - **Purpose**: Highlights accounts accessing from multiple countries, which may indicate account compromise.
+
 ---
 #### Query 3: Sign-ins Using Legacy or Non-Compliant Devices
 ```KQL
@@ -1188,7 +1192,9 @@ AADSignInEventsBeta
 | summarize Attempts = count(), LastSeen = max(Timestamp) by AccountUpn, DeviceName, OSPlatform, IPAddress
 | order by Attempts desc
 ```
+
 - **Purpose**: Detects users accessing resources from unmanaged or non-compliant devices.
+
 ---
 #### Query 4: Sign-ins with Conditional Access Failure
 ```KQL
@@ -1197,7 +1203,9 @@ AADSignInEventsBeta
 | summarize Failures = count(), LastFailure = max(Timestamp) by AccountUpn, ConditionalAccessPolicies, IPAddress
 | order by Failures desc
 ```
+
 - **Purpose**: Shows which users failed conditional access policies, and which policies were involved.
+
 ---
 #### Query 5: External Guest Users with Successful Sign-ins
 ```KQL
@@ -1205,7 +1213,9 @@ AADSignInEventsBeta
 | where IsExternalUser == true and ErrorCode == 0
 | summarize SuccessfulLogins = count(), LastSeen = max(Timestamp) by AccountUpn, IPAddress, ResourceDisplayName
 ```
+
 - **Purpose**: Helps audit external or guest accounts accessing resources successfully.
+  
 ---
 #### Query 6: High-Risk Sign-ins Using Password-Only Authentication
 ```KQL
@@ -1214,7 +1224,9 @@ AADSignInEventsBeta
 | where RiskLevelDuringSignIn in (50, 100)
 | summarize RiskyEvents = count(), LastSeen = max(Timestamp) by AccountUpn, IPAddress, UserAgent
 ```
+
 - **Purpose**: Detects risky sign-ins that didn’t require multi-factor authentication (MFA).
+
 ---
 #### Query 7: Multiple Accounts from Same IP (Lateral Movement Suspicion)
 ```KQL
@@ -1223,7 +1235,9 @@ AADSignInEventsBeta
 | summarize UniqueUsers = dcount(AccountUpn), Accounts = make_set(AccountUpn) by IPAddress
 | where UniqueUsers > 3
 ```
+
 - **Purpose**: Identifies potential lateral movement by looking for multiple user accounts signing in from the same IP.
+  
 ---
 #### Query 8: Multiple Failed Sign-ins with Different User Agents
 ```KQL
@@ -1233,8 +1247,10 @@ AADSignInEventsBeta
 | where AgentCount > 2 and Attempts > 5
 
 ```
+
 - **Purpose**: Detects brute-force or spray attacks with varied clients/browsers.
 ---
+
 #### Query 9: Accounts with Risky Sign-ins After Password Change
 ```KQL
 AADSignInEventsBeta
@@ -1243,7 +1259,9 @@ AADSignInEventsBeta
 | where TimeSincePwdChange > 0 and TimeSincePwdChange < 60
 | project Timestamp, AccountUpn, RiskEventTypes, IPAddress, TimeSincePwdChange
 ```
+
 - **Purpose**: Finds suspicious sign-ins that occur shortly after password changes—could indicate compromise.
+
 ---
 #### Query 10: Uncommon Client Apps Used in Sign-ins
 ```KQL
