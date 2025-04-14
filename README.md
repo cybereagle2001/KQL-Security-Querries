@@ -855,8 +855,102 @@ AlertEvidence
 
 ### AlertInfo Table
 #### AlertInfo Table Description
+The **AlertInfo** table in Microsoft Defender XDR's Advanced Hunting provides metadata about security alerts generated across Defender products. This table enables analysts to:
+- Prioritize alerts by severity and category
+- Understand MITRE ATT&CK mappings
+- Track investigation status
+  | Column Name | Data Type | Description | Example Value |
+|------------|-----------|-------------|---------------|
+| `AlertId` | string | Unique identifier for the alert | `caD70CFEE2-60A8-4BD5-BDF8-2E4AC1234567` |
+| `Title` | string | Brief description of the alert | "Suspicious PowerShell execution detected" |
+| `Severity` | string | Alert risk level (`High`, `Medium`, `Low`, `Informational`) | `High` |
+| `Category` | string | Threat classification | `Malware`, `Phishing`, `LateralMovement` |
+| `DetectionSource` | string | Defender product that generated the alert | `Defender for Endpoint` |
+| `ATTACKTechniques` | string | Specific MITRE techniques | `T1059.001` (PowerShell) |
+| `Timestamp` | datetime | Alert generation time | `2024-02-20T14:32:17Z` |
+| `ServiceSource` | string | Internal service component | `CloudAppSecurity` |
 
 #### AlertInfo QKL Queries
+#### Query 1: Critical Unresolved Alerts Last 24H
+``` KQL
+AlertInfo
+| where Timestamp > ago(1d)
+| where Severity == "High" 
+| project Title, AlertId, Timestamp, Category, DetectionSource
+| order by Timestamp desc
+```
+- **Usage** : Prioritize urgent threats needing immediate action.
+---
+#### Query 2: Top Attack Techniques in Alerts
+
+``` KQL
+AlertInfo
+| where isnotempty(AttackTechniques)
+| summarize AlertCount=count() by AttackTechniques
+| top 10 by AlertCount desc
+| render columnchart
+```
+- **Use**: Identify most frequent MITRE techniques in your environment.
+---
+#### Query 3: Alert Volume by Detection Source
+``` KQL
+AlertInfo
+| summarize count() by DetectionSource
+| order by count_ desc
+| render piechart
+```
+- **Usage** : Understand which Defender products generate most alerts.
+---
+#### Query 4: Phishing Alert Investigation
+``` KQL
+AlertInfo
+| where Category == "Phishing"
+| where Timestamp > ago(7d)
+| summarize 
+    Total=count(),
+    HighSeverity=countif(Severity=="High") 
+    by DetectionSource
+| extend HighSeverityPercentage = (HighSeverity * 100) / Total
+```
+- **Usage** : Measure phishing detection effectiveness across products.
+---
+#### Query 5: PowerShell-Related Threats
+``` KQL
+AlertInfo
+| where AttackTechniques has "T1059"
+| project 
+    Timestamp,
+    Title, 
+    Severity,
+    Category,
+    AlertId
+| order by Timestamp desc
+```
+- **Usage**: Hunt for script-based attacks (common in ransomware).
+  ---
+#### Query 6: Alert Timeline Analysis
+``` KQL
+AlertInfo
+| summarize count() by bin(Timestamp, 1h)
+| render timechart title="Alert Volume by Hour"
+```
+- **Usage**: Detect attack patterns or mass exploitation attempts.
+---
+#### Query 7: Corrleated High-Severity Alerts
+``` KQL
+let highSeverityAlerts = AlertInfo
+| where Severity == "High"
+| where Timestamp > ago(6h);
+highSeverityAlerts
+| join kind=inner (AlertEvidence) on AlertId
+| summarize 
+    AlertCount=count(),
+    Entities=makeset(EntityType) 
+    by Title
+| where AlertCount > 3
+```
+- **Usage**: Find potential campaigns with multiple related alerts.
+---
 
 ### BehaviorEntities Table
 ### BehaviorInfo Table
