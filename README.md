@@ -11,7 +11,7 @@
 ![image](https://github.com/user-attachments/assets/6a3a1cb2-60ea-4173-a3c4-de2968078c23)
 
 
-This repository, created by ![@cybereagle2001 (Oussama Ben Hadj Dahman)](https://www.linkedin.com/in/oussama-ben-hadj-dahman-0547a61b3/), a cybersecurity specialist and researcher, aims to centralize useful KQL (Kusto Query Language) queries. These queries are designed by cybereagle2001 to assist cybersecurity professionals in their daily tasks, making their work more efficient and effective.
+This repository, created by [@cybereagle2001 (Oussama Ben Hadj Dahman)](https://www.linkedin.com/in/oussama-ben-hadj-dahman-0547a61b3/), a cybersecurity specialist and researcher, aims to centralize useful KQL (Kusto Query Language) queries. These queries are designed by cybereagle2001 to assist cybersecurity professionals in their daily tasks, making their work more efficient and effective.
 
 <center>
 
