@@ -1559,6 +1559,7 @@ let CriticalIdentities =
 - **where set_has_element(Categories, "identity")**: Filters the nodes to include only those categorized as "identity".
 - **where isnotnull(NodeProperties.rawData.criticalityLevel) and NodeProperties.rawData.criticalityLevel.criticalityLevel < 4**: Further filters the identities to include only those with a defined criticality level that is less than 4 (assuming a scale where lower numbers indicate higher criticality).
 - **distinct NodeName**: Selects unique node names that meet the above criteria, resulting in a set of critical identities.
+
 ---
 #### 2. Identifying Critical Devices
 
