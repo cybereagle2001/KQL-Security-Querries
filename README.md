@@ -861,16 +861,37 @@ The **AlertInfo** table in Microsoft Defender XDR's Advanced Hunting provides me
 - Prioritize alerts by severity and category
 - Understand MITRE ATT&CK mappings
 - Track investigation status
-  | Column Name | Data Type | Description | Example Value |
-|------------|-----------|-------------|---------------|
-| `AlertId` | string | Unique identifier for the alert | `caD70CFEE2-60A8-4BD5-BDF8-2E4AC1234567` |
-| `Title` | string | Brief description of the alert | "Suspicious PowerShell execution detected" |
-| `Severity` | string | Alert risk level (`High`, `Medium`, `Low`, `Informational`) | `High` |
-| `Category` | string | Threat classification | `Malware`, `Phishing`, `LateralMovement` |
-| `DetectionSource` | string | Defender product that generated the alert | `Defender for Endpoint` |
-| `ATTACKTechniques` | string | Specific MITRE techniques | `T1059.001` (PowerShell) |
-| `Timestamp` | datetime | Alert generation time | `2024-02-20T14:32:17Z` |
-| `ServiceSource` | string | Internal service component | `CloudAppSecurity` |
+1. **`AlertId`** (string)
+Unique identifier for the alert
+Example: caD70CFEE2-60A8-4BD5-BDF8-2E4AC1234567
+
+2. **`Title`** (string)
+Brief description of the alert
+Example: "Suspicious PowerShell execution detected"
+
+3. **`Severity`** (string)
+Alert risk level (High, Medium, Low, Informational)
+Example: High
+
+4. **`Category`** (string)
+Threat classification
+Example: Malware, Phishing, LateralMovement
+
+5. **`DetectionSource`** (string)
+Defender product that generated the alert
+Example: Defender for Endpoint
+
+6. **`ATTACKTechniques`** (string)
+Specific MITRE techniques used in the alert
+Example: T1059.001 (PowerShell)
+
+7. **`Timestamp`** (datetime)
+Alert generation time
+Example: 2024-02-20T14:32:17Z
+
+8. **`ServiceSource`** (string)
+Internal service component that produced the alert
+Example: CloudAppSecurity
 
 #### AlertInfo QKL Queries
 #### Query 1: Critical Unresolved Alerts Last 24H
