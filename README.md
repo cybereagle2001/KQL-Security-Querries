@@ -902,7 +902,9 @@ AlertInfo
 | project Title, AlertId, Timestamp, Category, DetectionSource
 | order by Timestamp desc
 ```
+
 - **Usage** : Prioritize urgent threats needing immediate action.
+
 ---
 #### Query 2: Top Attack Techniques in Alerts
 
@@ -913,7 +915,9 @@ AlertInfo
 | top 10 by AlertCount desc
 | render columnchart
 ```
+
 - **Use**: Identify most frequent MITRE techniques in your environment.
+
 ---
 #### Query 3: Alert Volume by Detection Source
 ``` KQL
@@ -922,7 +926,9 @@ AlertInfo
 | order by count_ desc
 | render piechart
 ```
+
 - **Usage** : Understand which Defender products generate most alerts.
+
 ---
 #### Query 4: Phishing Alert Investigation
 ``` KQL
@@ -935,7 +941,9 @@ AlertInfo
     by DetectionSource
 | extend HighSeverityPercentage = (HighSeverity * 100) / Total
 ```
+
 - **Usage** : Measure phishing detection effectiveness across products.
+
 ---
 #### Query 5: PowerShell-Related Threats
 ``` KQL
@@ -949,7 +957,9 @@ AlertInfo
     AlertId
 | order by Timestamp desc
 ```
+
 - **Usage**: Hunt for script-based attacks (common in ransomware).
+
   ---
 #### Query 6: Alert Timeline Analysis
 ``` KQL
@@ -957,7 +967,9 @@ AlertInfo
 | summarize count() by bin(Timestamp, 1h)
 | render timechart title="Alert Volume by Hour"
 ```
+
 - **Usage**: Detect attack patterns or mass exploitation attempts.
+
 ---
 #### Query 7: Corrleated High-Severity Alerts
 ``` KQL
@@ -972,7 +984,9 @@ highSeverityAlerts
     by Title
 | where AlertCount > 3
 ```
+
 - **Usage**: Find potential campaigns with multiple related alerts.
+
 ---
 
 ### BehaviorEntities Table
