@@ -13,7 +13,6 @@
 
 This repository, created by [@cybereagle2001 (Oussama Ben Hadj Dahman)](https://www.linkedin.com/in/oussama-ben-hadj-dahman-0547a61b3/), a cybersecurity specialist and researcher, aims to centralize useful KQL (Kusto Query Language) queries. These queries are designed by cybereagle2001 to assist cybersecurity professionals in their daily tasks, making their work more efficient and effective.
 
-<center>
 
 ## Table of Contents
 
@@ -73,7 +72,6 @@ This repository, created by [@cybereagle2001 (Oussama Ben Hadj Dahman)](https://
       - [IdentityLogonEvents](#IdentityLogonEvents)
       - [IdentityQueryEvents](#IdentityQueryEvents)
 
-</center>
 
 ## Microsoft Sentinel Queries
 
